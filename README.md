@@ -95,9 +95,55 @@ LOS provides a clear direct path and is usually more predictable. NLOS communica
 
 A commonly used log-distance model is:
 
-\[
+### Log-Distance Path Loss Model
+
+The log-distance path loss model estimates how signal power decreases as the distance between a transmitter and receiver increases.
+
+**Formula:**
+
+$$
 PL(d)=PL(d_0)+10n\log_{10}\left(\frac{d}{d_0}\right)
-\]
+$$
+
+**Where:**
+- $PL(d)$ = Path loss at distance $d$ (dB).
+- $PL(d_0)$ = Path loss at the reference distance $d_0$ (dB).
+- $d$ = Distance between the transmitter and receiver.
+- $d_0$ = Reference distance.
+- $n$ = Path-loss exponent, determined by the propagation environment.
+- $\log_{10}$ = Base-10 logarithm.
+
+**Example:**
+
+Given:
+- $PL(d_0)=40$ dB
+- $d_0=10$ m
+- $d=100$ m
+- $n=3$
+
+Substituting into the formula:
+
+$$
+PL(d)=40+10(3)\log_{10}\left(\frac{100}{10}\right)
+$$
+
+$$
+PL(d)=40+30\log_{10}(10)
+$$
+
+Since $\log_{10}(10)=1$:
+
+$$
+PL(d)=40+30=\boxed{70\text{ dB}}
+$$
+
+**Result:** The path loss at 100 metres is **70 dB**.
+
+**Key takeaway:**
+
+As the distance between the transmitter and receiver increases, path loss generally increases, causing the received signal power to decrease.
+
+> **Remember:** Higher path loss generally means weaker received signal power and potentially poorer communication quality.
 
 Where:
 
