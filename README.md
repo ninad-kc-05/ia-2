@@ -145,20 +145,31 @@ As the distance between the transmitter and receiver increases, path loss genera
 
 > **Remember:** Higher path loss generally means weaker received signal power and potentially poorer communication quality.
 
-Where:
+**Where:**
+- $PL(d)$ is the path loss at distance $d$.
+- $PL(d_0)$ is the known path loss at the reference distance $d_0$.
+- $n$ is the path-loss exponent, which depends on the propagation environment.
 
-- \(PL(d)\) is the path loss at distance \(d\).
-- \(PL(d_0)\) is the known path loss at reference distance \(d_0\).
-- \(n\) is the path-loss exponent, which depends on the propagation environment.
+### Received Signal Power
 
-In a simplified link budget expressed in dB/dBm:
+The received signal power can be estimated using the simplified link-budget equation:
 
-\[
+$$
 P_r \approx P_t - PL
-\]
+$$
 
-where \(P_r\) is received power, \(P_t\) is transmitted power, and \(PL\) is path loss. Real link budgets may also include antenna gains and feeder or other losses.
+**Where:**
+- $P_r$ = Received signal power (dBm).
+- $P_t$ = Transmitted signal power (dBm).
+- $PL$ = Path loss (dB).
 
+**Note:** A complete link budget may also include antenna gains, cable losses, and other system losses.
+
+**Key takeaway:**
+
+$$
+\text{Higher Path Loss} \Rightarrow \text{Lower Received Signal Power}
+$$
 ### 4. Effect of increasing path loss
 
 The sequence is:
