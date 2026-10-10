@@ -52,7 +52,7 @@ message.
 -   The server may become a performance bottleneck under heavy load.
 -   The network connection affects response time.
 
-**Diagram to study:** ### Client-Server Architecture Diagram
+**Diagram to study:** Client-Server Architecture Diagram
 
 ![Many-to-Many Client-Server Relationship](https://www.cloudflare.com/img/learning/serverless/glossary/client-side-vs-server-side/many-to-many-client-server-relationship.svg)
 
@@ -107,8 +107,11 @@ interchangeable: their commands, semantics, and typical uses differ.
 **Important distinction:** SFTP is an SSH-based file-transfer protocol;
 it is not simply "secure FTP." FTPS is FTP protected with TLS.
 
-**Diagram/reference:** [MDN --- Overview of
-HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Overview)
+**Diagram: HTTP — Fetching a Webpage**
+
+![HTTP webpage fetching process](https://mdn.github.io/shared-assets/images/diagrams/http/overview/fetching-a-page.svg)
+
+*What the diagram shows:* A browser fetches a webpage by communicating with a web server. The browser sends HTTP requests for resources, and the server returns responses containing the requested resources. This illustrates the request-response mechanism used by HTTP.
 
 ------------------------------------------------------------------------
 
@@ -164,9 +167,17 @@ transport protocol itself.
 prepare for connections. - A browser application can call
 `fetch("https://example.com/data")` to request an HTTP resource.
 
-**References:** [Python socket
-documentation](https://docs.python.org/3/library/socket.html) · [MDN ---
-Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+**Diagram 1: Client-Server Socket Communication**
+
+![Client-server socket communication](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF9l9zLvvuZqlURu-sjtkjWrm9Fn9SdQ0HSIvyJ-X4gg&s=10)
+
+*What the diagram shows:* A client and a server create sockets. The server binds its socket to an address, and both sides use send and receive operations to exchange data.
+
+**Reference 2: Fetch API and Data Fetching**
+
+[Optimize Data Fetching — Medhat Dawoud](https://medhat.dev/blog/optimize-data-fetching)
+
+*What to look for:* How applications use HTTP requests to retrieve data, handle responses, and improve fetching performance.
 
 **Check your class notes:** If your instructor specifies a different
 pair of APIs, use that pair in the final exam answer.
@@ -228,8 +239,11 @@ Content-Type: text/html
 <h1>Welcome</h1>
 ```
 
-**Diagram:** [MDN --- HTTP messages, with request and response
-diagrams](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Messages)
+**Diagram: HTTP/2 Communication over a TCP Connection**
+
+![HTTP/2 client-server communication](https://mdn.github.io/shared-assets/images/diagrams/http/messages/http-2-connection.png)
+
+*What the diagram shows:* The client establishes a TCP connection with the server and exchanges HTTP requests and responses over multiple HTTP/2 streams. Examples include requests for JavaScript, CSS, and image resources. The streams allow multiple exchanges to share the connection.
 
 ------------------------------------------------------------------------
 
@@ -279,8 +293,11 @@ described as operating between traditional Layer 2 forwarding and Layer
 MPLS requires additional configuration and operational expertise; its
 benefits depend on the network design.
 
-**Diagram/reference:** [Cisco --- MPLS label and forwarding
-overview](https://www.cisco.com/c/en/us/support/docs/multiprotocol-label-switching-mpls/mpls/4649-mpls-faq-4649.html)
+**Diagram: Basic MPLS Network**
+
+![Basic MPLS label switching network](https://www.techtarget.com/rms/onlineimages/networking-simple_mpls_mobile.png)
+
+*What the diagram shows:* A packet enters the MPLS network through an ingress Label Switching Router (LSR). Intermediate routers forward the packet using labels, and egress routers direct traffic towards the appropriate destination. The diagram illustrates label-based forwarding through an MPLS network.
 
 ------------------------------------------------------------------------
 
@@ -319,9 +336,11 @@ A layered spectrum strategy combines low-band coverage, mid-band
 capacity, and high-band peak performance. Operators can select or
 combine bands according to local coverage and capacity needs.
 
-**Diagram/reference:** [U.S. FCC --- Making Spectrum Available (low-,
-mid- and high-band
-overview)](https://docs.fcc.gov/public/attachments/DOC-369307A2.pdf)
+**Diagram: Frequency and Wireless Coverage Range**
+
+![Wireless coverage at different frequencies](https://lh4.googleusercontent.com/cYpSdIDy6xQEFVdAuyXU7kPcwmXKe7pcUJfmanV17SgbT9B3oUjD8s_osd2XDaF70dh3SfInHZPgrrbCVi6rKRORSIMxBbqSB-ZE3WtNVL9QfDryfvvaBFjAaNexMxjkg46VJ414)
+
+*What the diagram shows:* Concentric coverage areas illustrate how the maximum cell radius varies across the frequencies shown. Lower frequencies generally provide a greater coverage range, while higher frequencies generally have shorter propagation ranges. Actual coverage depends on terrain, obstacles, transmit power, and deployment conditions.
 
 ------------------------------------------------------------------------
 
@@ -429,8 +448,11 @@ Actual performance depends on spectrum allocation, channel bandwidth,
 radio equipment, propagation conditions, and network design; a band
 alone does not guarantee a particular speed.
 
-**Diagram/reference:** [FCC --- Making Spectrum
-Available](https://docs.fcc.gov/public/attachments/DOC-369307A2.pdf)
+**Diagram: 5G Frequency Bands and Coverage**
+
+![5G frequency bands and coverage comparison](https://nybsys.com/wp-content/uploads/2023/05/New_5G-Popular-Frequency-Bands-1.png)
+
+*What the diagram shows:* Different frequency bands provide different coverage ranges. Low-band frequencies, such as 600 MHz and 700 MHz, cover larger areas. Mid-band frequencies, such as 3.5 GHz, balance coverage and capacity. High-band frequencies, such as 28 GHz, provide high-capacity coverage over smaller areas.
 
 ------------------------------------------------------------------------
 
@@ -485,9 +507,11 @@ service differentiation. However, actual performance and scalability
 depend on implementation, capacity planning, and deployment choices; 5G
 is not automatically better in every circumstance.
 
-**Diagram/reference:** [ETSI --- 3GPP TS 23.501, 5G System Architecture
-specification
-(PDF)](https://www.etsi.org/deliver/etsi_TS/123500_123599/123501/18.11.00_60/ts_123501v181100p.pdf)
+**Diagram: Traditional vs 5G Network Architecture**
+
+![Traditional mobile network compared with 5G architecture](https://www.telecomhall.net/uploads/db2683/original/3X/2/8/282b3378a085be3c4675b9abfdd74aeb6a8b4be4.jpeg)
+
+*What the diagram shows:* The traditional architecture includes a 4G radio access network and Evolved Packet Core (EPC), with components such as the MME, HSS, SGW and PGW. The 5G architecture shows 5G New Radio (NR), a virtualized and distributed architecture, and 5G Core functions. It also illustrates concepts such as edge computing, software-defined networking and network slicing.
 
 ------------------------------------------------------------------------
 
@@ -570,8 +594,16 @@ the byte stream in order to the receiving application.
     wants to close its sending direction.
 -   **RST:** Resets or aborts a TCP connection.
 
-**Diagram/reference:** [IIT Kharagpur --- TCP notes (includes TCP
-flags)](https://cse.iitkgp.ac.in/~agupta/networks/TCP.pdf)
+**Diagram 1: TCP Header Structure**
+
+![TCP header fields and flags](https://media.geeksforgeeks.org/wp-content/uploads/20260119175421230706/32_bits_1.webp)
+
+*What the diagram shows:* The TCP header contains source and destination ports, sequence and acknowledgement numbers, data offset, control flags, window size, checksum, urgent pointer and optional fields. The flags field contains control bits used for connection establishment, acknowledgement and termination.
+**Diagram 2: TCP Connection Termination**
+
+![TCP connection termination using FIN and ACK](https://upload.wikimedia.org/wikipedia/commons/8/8a/TCP_connection_Termination.png)
+
+*What the diagram shows:* Host A sends FIN to indicate that it has finished sending data. Host B acknowledges the FIN and later sends its own FIN when it is ready to close its sending direction. Host A acknowledges that FIN. This illustrates the TCP connection-termination process.
 
 ## Q5. Explain the purpose of `socket()`, `bind()`, `listen()`, `accept()`, and `connect()` functions.
 
