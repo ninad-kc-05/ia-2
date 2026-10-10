@@ -1,560 +1,380 @@
-# CN IA 2 — Solutions
+from pathlib import Path
 
-## Study priority
+content = r"""# AISC IA-2 — Theory Answers in Priority Order
 
-1.  **Module V --- Application Layer and Network Services** (7 marks per
-    question)
-2.  **Module VI --- Emerging Network Technologies and Security** (7
-    marks per question)
-3.  **Module IV --- Transport Layer Protocols** (2 marks per question)
+**Course:** Artificial Intelligence & Soft Computing  
+**Question bank:** Modules 4, 5 and 6  
+**Purpose:** Exam-oriented theory preparation. The four ANN numericals (QB Q5–Q8) are deliberately kept in a separate practice track.
+
+## Study strategy
+
+1. Master Module 4 numericals separately, while learning the ANN theory needed to understand them.
+2. Prepare 7-mark theory first: Module 5, then Module 6.
+3. Cover Module 4's 2-mark theory.
+4. Finish Module 5 and Module 6's 2-mark theory.
+
+### Source labels
+
+- **College notes / syllabus / QB:** Directly based on the uploaded AISC syllabus, Module 4 college notes and IA-2 question bank.
+- **Reference Deep Dive:** Expanded using the uploaded reference books where the syllabus/QB only names the topic. The answers are exam-oriented summaries, not verbatim textbook extracts.
 
 ---
 
-# Module V — Application Layer and Network Services
+# PRIORITY 1 — MODULE 5: 7-MARK THEORY
 
-## Q1. Analyze the client-server paradigm and explain how the client and server coordinate to provide a network service.
+## Q13. Analyze how associative memory retrieves stored information using a suitable example. (7 marks)
 
-The **client-server paradigm** is a network architecture in which a
-client requests a service or resource and a server receives the request,
-processes it, and returns a response.
+**Ideal Answer**
 
-### Working
+### Definition
+An **associative memory network** is a neural network that stores patterns and retrieves an associated pattern when it receives a complete or partial input pattern.
 
-1.  The **server starts** and listens for requests at a known network
-    address and port.
-2.  The **client initiates communication** by sending a request to the
-    server.
-3.  The server receives and interprets the request.
-4.  The server performs the required operation---for example, retrieving
-    a webpage or looking up a record.
-5.  The server sends a response containing the result or an error.
-6.  The client processes and displays the response. The exchange may
-    repeat for further requests.
+### Working mechanism
+1. **Storage:** The network is trained or configured to store associations between patterns.
+2. **Input:** A stored pattern, or a noisy/incomplete version of it, is presented to the network.
+3. **Comparison and processing:** The network processes the input using its stored connection weights.
+4. **Association/retrieval:** The network produces the pattern associated with the input.
+5. **Correction where supported by the model:** In recurrent networks such as a Hopfield network, neuron states may be updated repeatedly until the network reaches a stable state.
+6. **Output:** The retrieved pattern is returned.
 
 ### Example
-
-When a user opens a website, the browser acts as the client. It sends an
-HTTP request to the web server. The server processes the request and
-returns an HTTP response containing the requested page or a status/error
-message.
-
-### Advantages
-
--   Centralized management of data and services.
--   Easier maintenance and updating on the server.
--   Multiple clients can use the same service.
--   Access control and backups can be managed centrally.
-
-### Limitations
-
--   A server failure can interrupt service for its clients.
--   The server may become a performance bottleneck under heavy load.
--   The network connection affects response time.
-
-**Diagram to study:** Client-Server Architecture Diagram
-
-![Many-to-Many Client-Server Relationship](https://www.cloudflare.com/img/learning/serverless/glossary/client-side-vs-server-side/many-to-many-client-server-relationship.svg)
-
-*Figure: Many-to-many relationship between clients and servers. Source: Cloudflare.*
-
----
-
-## Q2. Compare and analyze FTP and HTTP with respect to their purpose, communication mechanism, and typical applications.
-
-**FTP (File Transfer Protocol)** is designed for transferring files
-between systems. **HTTP (Hypertext Transfer Protocol)** is designed for
-transferring web resources and is the foundation of communication
-between web clients and servers.
-
-| Feature | FTP | HTTP |
-|---|---|---|
-| Main purpose | Uploading and downloading files | Requesting and transferring web resources |
-| Communication model | Client-server; traditionally uses separate control and data connections | Request-response between client and server |
-| Typical use | File repositories and managed file transfers | Web pages, web APIs, images, and other web resources |
-| Authentication | May use user credentials; secure variants are preferable | May use cookies, tokens, or other authentication mechanisms |
-| Security | Plain FTP does not encrypt traffic; FTPS adds TLS | HTTPS protects HTTP using TLS |
-| Common ports | TCP 21 for FTP control; data connection depends on mode | TCP 80 for HTTP and TCP 443 for HTTPS, by convention |
-
-### Analysis
-
-FTP is suited to moving files, especially when the client needs
-file-management operations. HTTP is suited to delivering linked
-resources and powering websites and web APIs. FTP and HTTP are not
-interchangeable: their commands, semantics, and typical uses differ.
-
-**Important distinction:** SFTP is an SSH-based file-transfer protocol;
-it is not simply "secure FTP." FTPS is FTP protected with TLS.
-
-**Diagram: HTTP — Fetching a Webpage**
-
-![HTTP webpage fetching process](https://mdn.github.io/shared-assets/images/diagrams/http/overview/fetching-a-page.svg)
-
-*What the diagram shows:* A browser fetches a webpage by communicating with a web server. The browser sends HTTP requests for resources, and the server returns responses containing the requested resources. This illustrates the request-response mechanism used by HTTP.
-
----
-
-## Q3. Compare and analyze two different APIs used for accessing network services based on their communication mechanism and functionality.
-
-An **API (Application Programming Interface)** provides defined
-operations that a program can use to communicate with another program or
-service. The question does not specify which two APIs are expected. The
-following is an illustrative comparison of the **Berkeley sockets API**
-and the **HTTP Fetch API**.
-
-| Feature | Berkeley Sockets API | HTTP Fetch API |
-|---|---|---|
-| Main purpose | Provides low-level network communication endpoints | Allows web applications to make HTTP requests |
-| Communication | Supports TCP streams or UDP datagrams, among other socket types | Sends HTTP requests and exposes responses to application code |
-| Level of abstraction | Lower-level; the programmer manages connection and data-transfer details | Higher-level; HTTP methods, headers, bodies, and responses are represented by web APIs |
-| Typical operations | `socket()`, `bind()`, `listen()`, `accept()`, `connect()`, `send()`, and `recv()` | `fetch()`, followed by handling the returned `Response` |
-| Typical use | Network servers, clients, and system-level applications | Browser applications and HTTP requests |
-| Control | Greater control over transport-level communication | Convenient for HTTP-based services but subject to browser security rules |
-
-### Analysis
-
-Sockets are appropriate when an application needs direct control over
-TCP or UDP communication. Fetch is appropriate when a web application
-needs to request resources from an HTTP service without implementing the
-transport protocol itself.
-
-**Examples**
-- A TCP server uses `socket()`, `bind()`, and `listen()` to prepare for connections.
-- A browser application can call `fetch("https://example.com/data")` to request an HTTP resource.
-
-**Diagram 1: Client-Server Socket Communication**
-
-![Client-server socket communication](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF9l9zLvvuZqlURu-sjtkjWrm9Fn9SdQ0HSIvyJ-X4gg&s=10)
-
-*What the diagram shows:* A client and a server create sockets. The server binds its socket to an address, and both sides use send and receive operations to exchange data.
-
-**Reference 2: Fetch API and Data Fetching**
-
-[Optimize Data Fetching — Medhat Dawoud](https://medhat.dev/blog/optimize-data-fetching)
-
-*What to look for:* How applications use HTTP requests to retrieve data, handle responses, and improve fetching performance.
-
-**Check your class notes:** If your instructor specifies a different
-pair of APIs, use that pair in the final exam answer.
-
----
-
-## Q4. Compare and analyze HTTP request and HTTP response messages with respect to their structure and purpose.
-
-HTTP uses a **request-response model**. The client sends a request
-asking the server to perform an operation; the server returns a response
-describing the result.
-
-### Structure of an HTTP request
-
-1.  **Request line:** method, resource path and HTTP version. Example:
-    `GET /index.html HTTP/1.1`
-2.  **Headers:** metadata such as `Host`, `Accept` and `Authorization`.
-3.  **Blank line:** separates headers from the body.
-4.  **Optional body:** data sent with methods such as `POST` or `PUT`.
-
-### Structure of an HTTP response
-
-1.  **Status line:** HTTP version, status code and reason phrase.
-    Example: `HTTP/1.1 200 OK`
-2.  **Headers:** metadata such as `Content-Type` and `Content-Length`.
-3.  **Blank line:** separates headers from the body.
-4.  **Optional body:** the returned webpage, data, or error details.
-
-| Feature | HTTP Request | HTTP Response |
-|---|---|---|
-| Direction | Client to server | Server to client |
-| Start line | Method, target, and HTTP version | HTTP version, status code, and reason phrase |
-| Purpose | Requests an action or resource | Reports the outcome and may return the requested resource |
-| Examples | `GET`, `POST`, `PUT`, `DELETE` | `200 OK`, `404 Not Found`, `500 Internal Server Error` |
-| Body | Optional; often contains submitted data | Optional; often contains returned data |
-
-### Example exchange
-
-``` http
-GET /index.html HTTP/1.1
-Host: example.com
-Accept: text/html
-```
-
-``` http
-HTTP/1.1 200 OK
-Content-Type: text/html
-
-<h1>Welcome</h1>
-```
-
-**Diagram: HTTP/2 Communication over a TCP Connection**
-
-![HTTP/2 client-server communication](https://mdn.github.io/shared-assets/images/diagrams/http/messages/http-2-connection.png)
-
-*What the diagram shows:* The client establishes a TCP connection with the server and exchanges HTTP requests and responses over multiple HTTP/2 streams. Examples include requests for JavaScript, CSS, and image resources. The streams allow multiple exchanges to share the connection.
-
----
-
-# Module VI — Emerging Network Technologies and Security
-
-## Q1. Analyze the working of MPLS and explain how labels are used to forward packets through the network.
-
-**MPLS (Multiprotocol Label Switching)** forwards packets using short
-labels rather than requiring every core router to make a forwarding
-decision from the full network-layer header at each hop. It is often
-described as operating between traditional Layer 2 forwarding and Layer
-3 routing.
-
-### Main components
-
--   **Label Edge Router (LER):** adds a label as traffic enters an MPLS
-    domain and removes it as traffic leaves.
--   **Label Switching Router (LSR):** forwards labelled packets within
-    the MPLS domain.
--   **Label-Switched Path (LSP):** the path followed by labelled packets
-    through the MPLS network.
--   **Label:** a locally meaningful identifier associated with a
-    forwarding class.
-
-### Working
-
-1.  The ingress LER examines an incoming packet and classifies it into a
-    forwarding equivalence class.
-2.  It **pushes** an MPLS label onto the packet.
-3.  Each intermediate LSR checks the incoming label against its
-    label-forwarding table.
-4.  The LSR normally **swaps** the incoming label for an outgoing label
-    and forwards the packet to the next hop.
-5.  The egress LER, or in some designs the penultimate router, **pops**
-    the label.
-6.  The packet continues toward its destination.
-
-### Advantages
-
--   Efficient forwarding through the MPLS core.
--   Supports traffic engineering and managed paths.
--   Can support VPN services and QoS policies.
--   Can carry different network-layer traffic.
-
-### Limitation
-
-MPLS requires additional configuration and operational expertise; its
-benefits depend on the network design.
-
-**Diagram: Basic MPLS Network**
-
-![Basic MPLS label switching network](https://www.techtarget.com/rms/onlineimages/networking-simple_mpls_mobile.png)
-
-*What the diagram shows:* A packet enters the MPLS network through an ingress Label Switching Router (LSR). Intermediate routers forward the packet using labels, and egress routers direct traffic towards the appropriate destination. The diagram illustrates label-based forwarding through an MPLS network.
-
----
-
-## Q2. Analyze the spectrum requirements of 5G networks and explain why different frequency bands are required.
-
-5G needs radio spectrum that can support **wide coverage, high data
-rates, high capacity, and low-latency services**. No single frequency
-band optimizes all these goals, so networks use different bands for
-different conditions.
-
-### Why different bands are needed
-
--   **Low-band spectrum:** radio signals generally travel farther and
-    penetrate buildings better. It is useful for broad geographic
-    coverage, including rural areas, but typically offers less bandwidth
-    and lower peak capacity.
--   **Mid-band spectrum:** provides a balance between coverage and
-    capacity. It is widely useful for urban and suburban 5G deployments.
--   **High-band/mmWave spectrum:** offers large amounts of bandwidth and
-    very high data rates, but has shorter range and is more easily
-    blocked by walls, buildings, and obstacles. It often requires denser
-    deployments.
-
-### Other requirements
-
--   Sufficient contiguous bandwidth for high throughput.
--   Capacity to serve many connected devices.
--   Efficient spectrum reuse in dense areas.
--   Coordination with existing spectrum users and other radio systems.
--   Suitable deployment choices based on terrain, buildings, and traffic
-    demand.
+Suppose a network stores the association between the pattern representing a particular letter and that complete letter pattern. If a damaged or incomplete version is presented, the network can use the stored association to retrieve the corresponding pattern, depending on the network design and its stored patterns.
+
+### Types
+- **Auto-associative memory:** Associates an input pattern with itself, helping reconstruct a stored pattern.
+- **Hetero-associative memory:** Associates an input pattern with a different output pattern.
 
 ### Conclusion
+Associative memory enables retrieval by association rather than requiring the input to be an exact copy of the stored pattern.
 
-A layered spectrum strategy combines low-band coverage, mid-band
-capacity, and high-band peak performance. Operators can select or
-combine bands according to local coverage and capacity needs.
+**Reference Deep Dive — Associative Memory:** The uploaded syllabus names auto-associative and hetero-associative memory, BAM and Hopfield networks under Module 5. The question bank does not specify a required numerical example, so the example above is illustrative.
 
-**Diagram: Frequency and Wireless Coverage Range**
+## Q15. Analyze associative memory by examining its working mechanism and illustrating it with a suitable example. (7 marks)
 
-![Wireless coverage at different frequencies](https://lh4.googleusercontent.com/cYpSdIDy6xQEFVdAuyXU7kPcwmXKe7pcUJfmanV17SgbT9B3oUjD8s_osd2XDaF70dh3SfInHZPgrrbCVi6rKRORSIMxBbqSB-ZE3WtNVL9QfDryfvvaBFjAaNexMxjkg46VJ414)
+**Ideal Answer**
 
-*What the diagram shows:* Concentric coverage areas illustrate how the maximum cell radius varies across the frequencies shown. Lower frequencies generally provide a greater coverage range, while higher frequencies generally have shorter propagation ranges. Actual coverage depends on terrain, obstacles, transmit power, and deployment conditions.
+### Definition
+Associative memory is a neural-network approach in which a presented pattern is used to retrieve a related pattern stored in the network.
 
----
+### Working mechanism
+1. **Pattern representation:** Represent the input and output patterns in a suitable form.
+2. **Learning/storage:** Store the required pattern or input-output association in the network's weights.
+3. **Input presentation:** Present a known, partial or noisy pattern.
+4. **Network processing:** The input activates the network through its weighted connections.
+5. **Pattern retrieval:** The network generates the stored pattern or its associated output.
+6. **State updating:** In networks designed for iterative retrieval, such as Hopfield networks, states may be updated until a stable state is reached.
+7. **Output:** The retrieved pattern is provided as the network's response.
 
-## Q3. Analyze different types of cybercrime and identify the vulnerabilities that can be exploited in each case.
+### Example
+A system stores a complete binary pattern representing a symbol. Later, a version of that pattern with some entries missing or incorrect is presented. The network attempts to retrieve the stored symbol from the partial or noisy input. Successful retrieval depends on the stored patterns and the network's design.
 
-**Cybercrime** refers to unlawful activity in which computers, networks,
-or digital systems are the target or tool of the offence.
+### Main forms
+- **Auto-associative:** Input and retrieved pattern are intended to be the same.
+- **Hetero-associative:** Input is associated with a different output pattern.
 
-| Type of cybercrime | What it involves | Example vulnerability exploited |
+### Conclusion
+Associative memory is useful when a system must recall a pattern from a related, partial or noisy cue.
+
+**Exam note:** Q13 and Q15 overlap significantly. Learn the common working mechanism once, then adapt the emphasis to the wording: Q13 asks specifically about retrieval; Q15 asks for the broader concept and working mechanism.
+
+## Q14. Analyze the architecture of a Hopfield neural network and examine how its interconnected neurons contribute to associative memory. (7 marks)
+
+**Ideal Answer**
+
+### Definition
+A **Hopfield network** is a recurrent neural network used as an associative memory. Its interconnected neurons can store patterns as stable states of the network.
+
+### Architecture
+1. **Neurons:** The network contains a set of neurons whose states represent a pattern.
+2. **Recurrent connections:** Neurons are connected to other neurons, allowing the network's state to influence subsequent updates.
+3. **Connection weights:** Weights encode information about the stored patterns.
+4. **Feedback:** Unlike a feedforward network, signals can circulate through recurrent connections.
+5. **State updating:** Neuron states are updated according to the network's activation/update rule.
+6. **Energy function:** A Hopfield network is commonly described using an energy function. Under the usual conditions for the standard model and update rule, updates move the network toward a stable state.
+
+### Role in associative memory
+1. A complete or corrupted version of a stored pattern is presented as the initial state.
+2. The interconnected neurons process the current state through their weighted connections.
+3. Neuron states are updated.
+4. The network continues updating until it reaches a stable state or attractor.
+5. If the input lies within the retrieval region of a stored pattern, the stable state may correspond to that pattern.
+
+### Advantages
+- Can retrieve stored patterns from partial or noisy cues.
+- Recurrent connections allow the network to settle into a stable state.
+- Provides a model of content-addressable memory.
+
+### Conclusion
+The recurrent architecture, stored connection weights and stable states enable a Hopfield network to perform associative retrieval.
+
+**Reference Deep Dive — Hopfield Network:** This answer expands the syllabus topic. The exact assumptions and update rule matter when proving convergence; they should not be omitted in a mathematical derivation.
+
+## Q16. Compare BAM and hetero-associative memory based on architecture, working mechanism, input-output relationship, and applications. (7 marks)
+
+**Ideal Answer**
+
+### Introduction
+Hetero-associative memory stores associations between an input pattern and a different output pattern. **Bidirectional Associative Memory (BAM)** is a bidirectional associative-memory model that can retrieve associated patterns in either direction.
+
+| Basis | Hetero-associative memory (general) | Bidirectional Associative Memory (BAM) |
 |---|---|---|
-| Phishing and online fraud | Deceiving people into revealing information or making payments | Weak message verification, poor awareness, or stolen credentials |
-| Unauthorized access | Accessing accounts or systems without permission | Weak or reused passwords, missing multi-factor authentication, or unpatched software |
-| Malware and ransomware | Installing malicious software that may encrypt or steal data | Unsafe downloads, vulnerable software, or excessive privileges |
-| Identity theft | Misusing personal information to impersonate someone | Data leaks, exposed personal details, or weak account security |
-| Denial-of-service attacks | Overwhelming a service so legitimate users cannot access it | Insufficient capacity or inadequate traffic filtering and rate controls |
-| Web application attacks | Abusing a website or application to access or alter data | Input-validation flaws, injection vulnerabilities, or broken access control |
-| Data theft or leakage | Obtaining confidential information without authorization | Misconfigured storage, excessive permissions, poor encryption, or inadequate monitoring |
+| Meaning | Associates one pattern with a different pattern. | A hetero-associative model designed for bidirectional recall. |
+| Architecture | Uses connections that map input patterns to associated output patterns; architecture depends on the model. | Uses two neuron layers connected by weighted links, with recall possible in both directions. |
+| Working | Input activates the network to produce its associated output. | An input pattern in either layer produces an associated pattern in the other layer; alternating updates may be used. |
+| Input-output relationship | Typically described as input pattern → associated output pattern. | Supports A → B and B → A recall. |
+| Direction | May be one-directional, depending on implementation. | Bidirectional by design. |
+| Applications | Pattern association, paired-pattern retrieval and mapping one representation to another. | Bidirectional recall between paired patterns and associative pattern retrieval. |
 
-### Prevention
+### Working of BAM
+1. Patterns are stored as associated pairs.
+2. A pattern is presented to one of the two layers.
+3. Weighted connections activate the other layer.
+4. The resulting pattern can be fed back in the reverse direction.
+5. The process may continue until the pair becomes stable.
 
--   Use unique, strong passwords and multi-factor authentication.
--   Apply security updates promptly.
--   Verify links, attachments and requests for sensitive information.
--   Limit user privileges and secure access permissions.
--   Maintain offline or otherwise protected backups.
--   Use encryption, logging, monitoring and incident-response
-    procedures.
--   Provide regular security-awareness training.
+### Conclusion
+BAM is a particular form of hetero-associative memory that emphasizes recall in both directions. Hetero-associative memory is the broader category.
 
-**Conclusion:** Cybercrime often succeeds when technical weaknesses
-combine with weak processes or human deception. Effective protection
-requires technical controls, safe practices and timely response.
+**Reference Deep Dive — BAM:** This comparison uses the standard conceptual distinction. Specific BAM weight-learning equations were not requested in this question.
 
 ---
 
-## Q4. Compare and analyze the characteristics of low-band, mid-band, and high-band spectrum for 5G communication.
+# PRIORITY 2 — MODULE 6: 7-MARK THEORY
 
-| Characteristic | Low Band | Mid Band | High Band (mmWave) |
-|---|---|---|---|
-| Coverage | Broadest coverage of the three | Moderate coverage | Shorter coverage range |
-| Building penetration | Generally best | Moderate | Generally weakest |
-| Available bandwidth | Often more limited | More bandwidth is commonly available | Very wide bandwidth can be available |
-| Potential data rate | Usually lower peak capacity | High capacity and speed | Very high peak data rates in suitable conditions |
-| Deployment density | Can cover large areas with fewer sites | Moderate site density | Often requires many closely spaced sites |
-| Best-fit use | Rural areas, wide-area, and indoor coverage | Urban/suburban general-purpose 5G | Dense venues and high-capacity hotspots |
+## Q22. Analyze the process of fuzzification and compare the different defuzzification techniques used in a fuzzy inference system. (7 marks)
 
-### Analysis
+**Ideal Answer**
 
--   **Low band** is useful when reach and reliable coverage are the main
-    priorities.
--   **Mid band** is a practical balance of reach and capacity, making it
-    important for broad 5G deployment.
--   **High band** can provide very high throughput but is sensitive to
-    blockage and generally needs denser infrastructure.
+### 1. Fuzzification
+**Fuzzification** converts a crisp numerical input into degrees of membership in one or more fuzzy sets using membership functions. A membership degree generally lies between 0 and 1.
 
-Actual performance depends on spectrum allocation, channel bandwidth,
-radio equipment, propagation conditions, and network design; a band
-alone does not guarantee a particular speed.
+For example, a temperature input may have partial membership in the fuzzy sets *Warm* and *Hot* rather than belonging exclusively to one category.
 
-**Diagram: 5G Frequency Bands and Coverage**
+### 2. Role in a fuzzy inference system
+1. Receive crisp input values.
+2. Use membership functions to determine membership degrees.
+3. Apply fuzzy rules to the fuzzified inputs.
+4. Combine the rule outputs to obtain an aggregated fuzzy output.
+5. Apply defuzzification to obtain a crisp output when required.
 
-![5G frequency bands and coverage comparison](https://nybsys.com/wp-content/uploads/2023/05/New_5G-Popular-Frequency-Bands-1.png)
+### 3. Defuzzification
+**Defuzzification** converts the aggregated fuzzy output into a single crisp value suitable for decision-making or control.
 
-*What the diagram shows:* Different frequency bands provide different coverage ranges. Low-band frequencies, such as 600 MHz and 700 MHz, cover larger areas. Mid-band frequencies, such as 3.5 GHz, balance coverage and capacity. High-band frequencies, such as 28 GHz, provide high-capacity coverage over smaller areas.
+### 4. Defuzzification techniques
 
----
-
-## Q5. Compare and analyze traditional mobile network architecture with 5G architecture in terms of flexibility, scalability, and service support.
-
-The exact details depend on which earlier-generation architecture is
-used for comparison. Broadly, traditional 4G/LTE architecture is
-compared with the more service-based 5G Core.
-
-| Feature | Traditional Mobile Architecture (e.g., 4G/LTE) | 5G Architecture |
+| Technique | Principle | Key characteristic |
 |---|---|---|
-| Core architecture | EPC with defined network functions and interfaces | 5G Core with service-based architecture for many control-plane functions |
-| Flexibility | Virtualization is possible, but the architecture is generally less service-oriented | Designed for cloud-native deployment and modular network functions |
-| Scalability | Can scale, but may require scaling particular network elements | Network functions can be scaled and deployed more flexibly |
-| Service differentiation | Supports mobile broadband and QoS mechanisms | Designed for diverse service needs, including enhanced broadband, massive IoT, and low-latency/high-reliability use cases |
-| Network slicing | Not a native end-to-end capability in the same way as 5G slicing | Supports network slicing to tailor logical networks for different service requirements |
-| Deployment | Mature, established infrastructure | Can support more flexible cloud-based and distributed deployments |
+| Centre of Gravity (COG/Centroid) | Finds the centre of area of the aggregated output membership function. | Uses the overall shape of the output set. |
+| Mean of Maximum (MoM) | Calculates the mean of all output values having the maximum membership degree. | Averages the locations of maximum membership. |
+| Smallest of Maximum (SoM) | Selects the smallest output value at which the maximum membership degree occurs. | Chooses the leftmost maximum. |
+| Largest of Maximum (LoM) | Selects the largest output value at which the maximum membership degree occurs. | Chooses the rightmost maximum. |
 
-### Analysis
+For a discrete universe, the centroid can be represented as:
 
-5G architecture introduces a more modular, service-based core and
-supports network slicing, enabling operators to tailor network resources
-for different requirements. These features can improve flexibility and
-service differentiation. However, actual performance and scalability
-depend on implementation, capacity planning, and deployment choices; 5G
-is not automatically better in every circumstance.
+\[
+z^* = \frac{\sum_i z_i\mu(z_i)}{\sum_i \mu(z_i)}
+\]
 
-**Diagram: Traditional vs 5G Network Architecture**
+where \(z_i\) is an output value and \(\mu(z_i)\) is its aggregated membership degree. For a continuous universe, the corresponding expression uses integrals.
 
-![Traditional mobile network compared with 5G architecture](https://www.telecomhall.net/uploads/db2683/original/3X/2/8/282b3378a085be3c4675b9abfdd74aeb6a8b4be4.jpeg)
+### 5. Comparison
+- **Centroid:** Considers the overall aggregated membership distribution, but may require more computation.
+- **MoM:** Averages all values that attain the maximum membership.
+- **SoM:** Selects the smallest value among the maxima.
+- **LoM:** Selects the largest value among the maxima.
 
-*What the diagram shows:* The traditional architecture includes a 4G radio access network and Evolved Packet Core (EPC), with components such as the MME, HSS, SGW and PGW. The 5G architecture shows 5G New Radio (NR), a virtualized and distributed architecture, and 5G Core functions. It also illustrates concepts such as edge computing, software-defined networking and network slicing.
+### Conclusion
+Fuzzification represents crisp inputs using fuzzy membership, fuzzy inference applies rules, and defuzzification converts the final fuzzy result into a crisp value. The appropriate defuzzification technique depends on the required output and system design.
 
----
+**Reference Deep Dive — Fuzzy Inference:** The listed techniques match the uploaded syllabus. The syllabus names the methods but does not provide their detailed derivations.
 
-## Q6. Analyze how dynamic spectrum sharing can improve the utilization of available radio spectrum.
+## Q21. Analyze the different activation functions used in ANN and compare their characteristics and applications, with reference to unipolar and bipolar functions. (7 marks)
 
-**Dynamic Spectrum Sharing (DSS)** is a technique that allows compatible
-radio technologies---commonly 4G LTE and 5G NR---to share spectrum
-resources dynamically within the same frequency band, subject to the
-system's design and scheduling rules.
+**Ideal Answer**
 
-### Working
+### Definition
+An activation function determines a neuron's output from its net input. It introduces non-linearity where the selected function is non-linear, allowing a network to learn more complex relationships.
 
-1.  The operator has a frequency band that can support both LTE and 5G
-    NR.
-2.  The radio system schedules resources for the technologies according
-    to traffic demand and implementation constraints.
-3.  Resources can be allocated to LTE or 5G users as needed rather than
-    permanently reserving the entire band for only one technology.
-4.  This lets an operator introduce 5G using existing spectrum while
-    continuing to support LTE devices.
+### 1. Unipolar step activation function
+The unipolar step function produces either 0 or 1.
 
-### Benefits
+\[
+f(x)=
+\begin{cases}
+1, & x \geq 0\\
+0, & x < 0
+\end{cases}
+\]
 
--   Supports gradual migration from 4G to 5G.
--   Allows spectrum to be shared according to changing demand.
--   Can improve utilization when demand between technologies varies.
--   May reduce the need to dedicate separate spectrum blocks to each
-    technology during transition.
+**Characteristics**
+- Output range: 0 to 1.
+- Does not produce negative outputs.
+- Simple and computationally inexpensive.
+- Discontinuous at the threshold and not differentiable there.
 
-### Limitations
+**Applications:** Simple threshold-based decisions and early perceptron-style models.
 
--   Sharing has overhead and scheduling constraints.
--   Performance depends on the radio implementation and the mix of LTE
-    and 5G traffic.
--   DSS does not create new spectrum; in some conditions, dedicated
-    spectrum can provide better performance.
+### 2. Bipolar step activation function
+The bipolar step function produces either −1 or +1.
 
-**Conclusion:** DSS can make existing spectrum more flexible and useful
-during a 4G-to-5G transition, but its benefit depends on traffic
-patterns and implementation.
+\[
+f(x)=
+\begin{cases}
+1, & x \geq 0\\
+-1, & x < 0
+\end{cases}
+\]
 
----
+**Characteristics**
+- Output range: −1 to +1.
+- Produces both positive and negative outputs.
+- Has a symmetric output range around zero.
+- Is a step function and is not suitable for ordinary gradient-based learning at its discontinuity.
 
-# Module IV — Transport Layer Protocols
+**Applications:** Simple threshold-based models where two classes or states are represented by −1 and +1.
 
-*These are 2-mark questions. Keep each answer concise and focus on the
-definition and main purpose.*
+### 3. Comparison
 
-## Q1. Explain the purpose of transport service primitives.
+| Feature | Unipolar step | Bipolar step |
+|---|---|---|
+| Output values | 0 and 1 | −1 and +1 |
+| Output range | 0 to 1 | −1 to +1 |
+| Negative output | No | Yes |
+| Symmetry around zero | No | Yes |
+| Computation | Simple | Simple |
+| Differentiability at threshold | Not differentiable | Not differentiable |
+| Typical use | Binary threshold output | Two-state output represented with opposite signs |
 
-Transport service primitives are operations through which an application
-uses the transport layer to communicate with another application.
-Typical connection-oriented primitives include **LISTEN, CONNECT,
-ACCEPT, SEND, RECEIVE, and DISCONNECT**. They provide a defined
-interface for establishing communication, exchanging data, and
-terminating a connection.
+### 4. Other common activation functions
+Depending on the ANN architecture, other functions include:
+- **Sigmoid:** Produces a smooth output between 0 and 1.
+- **Hyperbolic tangent (tanh):** Produces a smooth output between −1 and +1.
 
-## Q2. Explain the concept of Berkeley sockets in network communication.
+These differ from step functions because they are continuous; their derivatives can be used in gradient-based learning.
 
-Berkeley sockets are a programming interface for network communication.
-A socket is an endpoint identified by addressing information and used by
-a program to send or receive data. The API supports communication using
-protocols such as TCP and UDP; common calls include `socket()`,
-`bind()`, `connect()`, `send()` and `recv()`.
+### Conclusion
+Unipolar and bipolar step functions are simple threshold functions with different output ranges. The choice depends on the output representation and learning method. Step functions are generally unsuitable for gradient-based training because of their discontinuity and lack of a useful derivative at the threshold.
 
-## Q3. Describe how TCP provides reliable data delivery.
-
-TCP provides reliable, ordered delivery using sequence numbers,
-acknowledgements, checksums, retransmission of lost data, and timers. It
-detects missing or corrupted data and retransmits as needed, delivering
-the byte stream in order to the receiving application.
-
-## Q4. Explain the purpose of TCP flags such as SYN, ACK, FIN, and RST.
-
--   **SYN:** Used to initiate a connection and synchronize sequence
-    numbers.
--   **ACK:** Indicates that the acknowledgement field is valid and
-    acknowledges received data or connection information.
--   **FIN:** Indicates that the sender has finished sending data and
-    wants to close its sending direction.
--   **RST:** Resets or aborts a TCP connection.
-
-**Diagram 1: TCP Header Structure**
-
-![TCP header fields and flags](https://media.geeksforgeeks.org/wp-content/uploads/20260119175421230706/32_bits_1.webp)
-
-*What the diagram shows:* The TCP header contains source and destination ports, sequence and acknowledgement numbers, data offset, control flags, window size, checksum, urgent pointer, and optional fields. The flags field contains control bits used for connection establishment, acknowledgement, and termination.
-
-**Diagram 2: TCP Connection Termination**
-
-![TCP connection termination using FIN and ACK](https://upload.wikimedia.org/wikipedia/commons/8/8a/TCP_connection_Termination.png)
-
-*What the diagram shows:* Host A sends FIN to indicate that it has finished sending data. Host B acknowledges the FIN and later sends its own FIN when it is ready to close its sending direction. Host A acknowledges that FIN. This illustrates the TCP connection-termination process.
-
-## Q5. Explain the purpose of `socket()`, `bind()`, `listen()`, `accept()`, and `connect()` functions.
-
--   **`socket()`** creates a socket endpoint.
--   **`bind()`** associates a local address and port with a socket.
--   **`listen()`** marks a TCP socket as passive and ready to queue
-    incoming connection requests.
--   **`accept()`** accepts a pending connection and returns a socket for
-    communicating with that client.
--   **`connect()`** initiates a connection to a remote endpoint,
-    commonly used by a TCP client.
-
-## Q6. Describe how TCP provides full-duplex communication.
-
-TCP is full-duplex because both endpoints can send and receive data
-independently over the same connection at the same time. Each direction
-has its own sequence and acknowledgement information, so data can flow
-in both directions simultaneously.
-
-## Q7. Explain why timers are required in TCP.
-
-TCP uses timers to detect when expected acknowledgements do not arrive
-in time and to trigger retransmission. Timers also support functions
-such as connection management and persist/keepalive behaviour, helping
-TCP recover from loss or avoid waiting indefinitely in certain
-situations.
-
-## Q8. Compare FTP, SFTP and SCP.
-
-| Protocol | Purpose and key point |
-|---|---|
-| **FTP** | Transfers files using the File Transfer Protocol; ordinary FTP does not encrypt credentials or data. |
-| **SFTP** | Secure file-transfer protocol that operates over SSH and supports file operations. |
-| **SCP** | Uses SSH for secure copying of files between systems; traditionally focused on copying rather than a broad file-management interface. |
-
-**Remember:** SFTP is not the same protocol as FTP protected by TLS;
-that latter option is called FTPS.
-
-## Q9. Explain why real-time applications may prefer UDP.
-
-UDP has low protocol overhead and does not require a connection setup or
-retransmission of lost packets. For real-time voice, video, and gaming,
-timely arrival may matter more than retransmitting late data.
-Applications can implement their own reliability or loss-handling
-mechanisms when needed.
+**Source alignment:** The college notes explicitly cover unipolar and bipolar step functions. Sigmoid and tanh are included as brief additional context; the question specifically emphasizes unipolar and bipolar functions.
 
 ---
 
-# Final Revision Checklist
+# PRIORITY 3 — MODULE 4: 2-MARK THEORY
 
-## Module V --- 7 marks
+## Q2. List the major components of an artificial neuron. (2 marks)
 
--   [ ] Client-server paradigm
--   [ ] FTP vs HTTP
--   [ ] APIs for network services
--   [ ] HTTP request vs response
+**Ideal Answer**
 
-## Module VI --- 7 marks
+The major components of an artificial neuron are:
+1. Inputs
+2. Weights
+3. Bias
+4. Summation unit
+5. Activation function
+6. Output
 
--   [ ] MPLS and label forwarding
--   [ ] 5G spectrum requirements
--   [ ] Cybercrime and vulnerabilities
--   [ ] Low-, mid- and high-band spectrum
--   [ ] Traditional vs 5G architecture
--   [ ] Dynamic spectrum sharing
+The summation unit calculates the weighted sum of inputs, adding bias where used. The activation function determines the final output. *(Based on the college notes.)*
 
-## Module IV --- 2 marks
+## Q3. What is meant by an activation function? (2 marks)
 
--   [ ] Transport service primitives
--   [ ] Berkeley sockets
--   [ ] TCP reliability
--   [ ] TCP flags
--   [ ] Socket functions
--   [ ] Full-duplex communication
--   [ ] TCP timers
--   [ ] FTP vs SFTP vs SCP
--   [ ] UDP in real-time applications
+**Ideal Answer**
 
-## Study note
+An activation function determines a neuron's output based on its net input. It can introduce non-linearity, enabling an ANN to learn complex relationships. Examples in the college notes are unipolar and bipolar step functions.
 
-No explicit numerical/calculation question appears in the 19 questions
-listed for this IA 2 QB. Focus first on the theory and comparison
-questions above. Check lecture notes for any additional syllabus topics
-not represented in the QB.
+## Q4. Why are activation functions required in neural networks? (2 marks)
+
+**Ideal Answer**
+
+Activation functions introduce non-linearity into neural networks. Without non-linear activation functions, stacked layers of ordinary linear transformations would still represent a linear transformation, limiting the network's ability to learn complex relationships.
+
+## Q1. Explain the concept of Artificial Neural Network (ANN) and its basic working. (2 marks)
+
+**Ideal Answer**
+
+An Artificial Neural Network (ANN) is a computing model inspired by the human brain. It consists of interconnected processing units called neurons and learns from examples through training.
+
+**Working:** Inputs are multiplied by weights, the weighted values are summed with bias where used, an activation function is applied, and the neuron produces an output.
+
+**Flow:** Input → Weighted Sum → Activation Function → Output.
+
+---
+
+# PRIORITY 4 — MODULE 5: 2-MARK THEORY
+
+## Q10. Explain hetero-associative memory with a suitable example. (2 marks)
+
+**Ideal Answer**
+
+**Hetero-associative memory** stores an association between an input pattern and a different output pattern. When the input pattern is presented, the network retrieves its associated output.
+
+**Example:** A system stores a person's name associated with that person's identification code. Presenting the name retrieves the associated code.
+
+## Q11. Explain the advantages of Bidirectional Associative Memory (BAM). (2 marks)
+
+**Ideal Answer**
+
+Advantages of BAM include:
+1. It supports associative recall in both directions between paired patterns.
+2. It can retrieve an associated pattern when a pattern from either layer is presented.
+3. Its recurrent interaction supports iterative recall toward a stable association under the model's operating conditions.
+
+## Q12. Explain the concept of the energy function in a Hopfield network. (2 marks)
+
+**Ideal Answer**
+
+The **energy function** is a scalar measure associated with the state of a Hopfield network. Under the standard network assumptions and update rule, neuron updates move the network toward lower-energy states. A stable state corresponds to a local minimum of the energy function and may represent a stored pattern.
+
+## Q9. Explain the concept of an associative memory network. (2 marks)
+
+**Ideal Answer**
+
+An associative memory network is a neural network that stores patterns or associations and retrieves a related stored pattern when given a complete, partial or noisy cue. Auto-associative memory retrieves the same pattern, whereas hetero-associative memory retrieves a different associated pattern.
+
+---
+
+# PRIORITY 5 — MODULE 6: 2-MARK THEORY
+
+## Q18. Explain the need for fuzzification in a fuzzy inference system. (2 marks)
+
+**Ideal Answer**
+
+Fuzzification converts crisp input values into membership degrees in relevant fuzzy sets. It allows a fuzzy inference system to represent vague concepts such as *low*, *medium* and *high*, and provides the membership values needed to evaluate fuzzy rules.
+
+## Q17. Explain the concept of defuzzification in a fuzzy inference system. (2 marks)
+
+**Ideal Answer**
+
+Defuzzification converts the aggregated fuzzy output of a fuzzy inference system into a crisp numerical value. This value can be used for a final decision or control action. Common techniques include Centre of Gravity, Mean of Maximum, Smallest of Maximum and Largest of Maximum.
+
+## Q19. Describe the steps involved in fuzzy reasoning. (2 marks)
+
+**Ideal Answer**
+
+The main steps in fuzzy reasoning are:
+1. **Fuzzification:** Convert crisp inputs into membership degrees.
+2. **Rule evaluation:** Evaluate the applicable IF–THEN fuzzy rules.
+3. **Aggregation:** Combine the outputs of the evaluated rules.
+4. **Defuzzification:** Convert the aggregated fuzzy output into a crisp value when required.
+
+## Q20. Describe the relationship between fuzzy rules and fuzzy inference. (2 marks)
+
+**Ideal Answer**
+
+Fuzzy rules are IF–THEN statements that express relationships between fuzzy conditions and conclusions. Fuzzy inference is the process of applying these rules to fuzzified inputs, determining the rules' contributions and combining their outputs to produce a fuzzy result.
+
+---
+
+# FINAL PROGRESS TRACKER
+
+## Separate numerical track
+- [ ] Q5 — Unipolar step function
+- [ ] Q6 — Bipolar activation function
+- [ ] Q7 — Delta learning rule
+- [ ] Q8 — Multiple outputs using binary sigmoid
+
+**Important:** These are study-ready draft answers. Before final memorization, check any lecturer-specific definitions, diagrams or examples against the college's teaching material. Module 5 and Module 6 answers are reference-based expansions because the uploaded college notes supplied here focus on Module 4.
+"""
+
+path = Path("/mnt/data/README_AISC_IA2_Theory.md")
+path.write_text(content, encoding="utf-8")
+print(f"Updated README with all 18 theory answers in the agreed priority order: {path}")
