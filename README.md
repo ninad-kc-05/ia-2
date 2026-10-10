@@ -66,35 +66,14 @@ between systems. **HTTP (Hypertext Transfer Protocol)** is designed for
 transferring web resources and is the foundation of communication
 between web clients and servers.
 
-  -----------------------------------------------------------------------
-  Feature                 FTP                     HTTP
-  ----------------------- ----------------------- -----------------------
-  Main purpose            Uploading and           Requesting and
-                          downloading files       transferring web
-                                                  resources
-
-  Communication model     Client-server;          Request-response
-                          traditionally uses      between client and
-                          separate control and    server
-                          data connections
-
-  Typical use             File repositories and   Web pages, web APIs,
-                          managed file transfers  images and other web
-                                                  resources
-
-  Authentication          May use user            May use cookies,
-                          credentials; secure     tokens, or other
-                          variants are preferable authentication
-                                                  mechanisms
-
-  Security                Plain FTP does not      HTTPS protects HTTP
-                          encrypt traffic; FTPS   using TLS
-                          adds TLS
-
-  Common ports            TCP 21 for FTP control; TCP 80 for HTTP and TCP
-                          data connection depends 443 for HTTPS by
-                          on mode                 convention
-  -----------------------------------------------------------------------
+| Feature | FTP | HTTP |
+|---|---|---|
+| Main purpose | Uploading and downloading files | Requesting and transferring web resources |
+| Communication model | Client-server; traditionally uses separate control and data connections | Request-response between client and server |
+| Typical use | File repositories and managed file transfers | Web pages, web APIs, images, and other web resources |
+| Authentication | May use user credentials; secure variants are preferable | May use cookies, tokens, or other authentication mechanisms |
+| Security | Plain FTP does not encrypt traffic; FTPS adds TLS | HTTPS protects HTTP using TLS |
+| Common ports | TCP 21 for FTP control; data connection depends on mode | TCP 80 for HTTP and TCP 443 for HTTPS, by convention |
 
 ### Analysis
 
@@ -122,38 +101,14 @@ service. The question does not specify which two APIs are expected. The
 following is an illustrative comparison of the **Berkeley sockets API**
 and the **HTTP Fetch API**.
 
-  -----------------------------------------------------------------------
-  Feature                 Berkeley sockets API    HTTP Fetch API
-  ----------------------- ----------------------- -----------------------
-  Main purpose            Provides low-level      Allows web applications
-                          network communication   to make HTTP requests
-                          endpoints
-
-  Communication           Can support TCP streams Sends HTTP requests and
-                          or UDP datagrams, among exposes responses to
-                          other socket types      application code
-
-  Level of abstraction    Lower-level; the        Higher-level; HTTP
-                          programmer manages      methods, headers,
-                          connection and          bodies and responses
-                          data-transfer details   are represented by web
-                                                  APIs
-
-  Typical operations      `socket()`, `bind()`,   `fetch()`, followed by
-                          `listen()`, `accept()`, handling the returned
-                          `connect()`, `send()`   `Response`
-                          and `recv()`
-
-  Typical use             Network servers,        Browser applications
-                          clients and             and web requests
-                          system-level
-                          applications
-
-  Control                 Greater control over    Convenient for
-                          transport-level         HTTP-based services but
-                          communication           subject to browser
-                                                  security rules
-  -----------------------------------------------------------------------
+| Feature | Berkeley Sockets API | HTTP Fetch API |
+|---|---|---|
+| Main purpose | Provides low-level network communication endpoints | Allows web applications to make HTTP requests |
+| Communication | Supports TCP streams or UDP datagrams, among other socket types | Sends HTTP requests and exposes responses to application code |
+| Level of abstraction | Lower-level; the programmer manages connection and data-transfer details | Higher-level; HTTP methods, headers, bodies, and responses are represented by web APIs |
+| Typical operations | `socket()`, `bind()`, `listen()`, `accept()`, `connect()`, `send()`, and `recv()` | `fetch()`, followed by handling the returned `Response` |
+| Typical use | Network servers, clients, and system-level applications | Browser applications and HTTP requests |
+| Control | Greater control over transport-level communication | Convenient for HTTP-based services but subject to browser security rules |
 
 ### Analysis
 
@@ -205,23 +160,13 @@ describing the result.
 3.  **Blank line:** separates headers from the body.
 4.  **Optional body:** the returned webpage, data, or error details.
 
-  --------
-  Feature                 HTTP request            HTTP response
-  ----------------------- ----------------------- -----------------------------
-  Direction               Client to server        Server to client
-
-  Start line              Method, target and      Version, status code and
-                          version                 reason phrase
-
-  Purpose                 Requests an action or   Reports the outcome and may
-                          resource                return the resource
-
-  Examples                `GET`, `POST`, `PUT`,   `200 OK`, `404 Not Found`,
-                          `DELETE`                `500 Internal Server Error`
-
-  Body                    Optional; often         Optional; often contains
-                          contains submitted data returned data
-  --------
+| Feature | HTTP Request | HTTP Response |
+|---|---|---|
+| Direction | Client to server | Server to client |
+| Start line | Method, target, and HTTP version | HTTP version, status code, and reason phrase |
+| Purpose | Requests an action or resource | Reports the outcome and may return the requested resource |
+| Examples | `GET`, `POST`, `PUT`, `DELETE` | `200 OK`, `404 Not Found`, `500 Internal Server Error` |
+| Body | Optional; often contains submitted data | Optional; often contains returned data |
 
 ### Example exchange
 
@@ -348,44 +293,15 @@ combine bands according to local coverage and capacity needs.
 **Cybercrime** refers to unlawful activity in which computers, networks,
 or digital systems are the target or tool of the offence.
 
-  -----------------------------------------------------------------------
-  Type of cybercrime      What it involves        Example vulnerability
-                                                  exploited
-  ----------------------- ----------------------- -----------------------
-  Phishing and online     Deceiving people into   Weak verification of
-  fraud                   revealing information   messages, poor
-                          or making payments      awareness, or stolen
-                                                  credentials
-
-  Unauthorized access     Accessing accounts or   Weak/reused passwords,
-                          systems without         missing multi-factor
-                          permission              authentication,
-                                                  unpatched software
-
-  Malware and ransomware  Installing malicious    Unsafe downloads,
-                          software, potentially   vulnerable software,
-                          encrypting or stealing  excessive privileges
-                          data
-
-  Identity theft          Misusing personal       Data leaks, exposed
-                          information to          personal details, weak
-                          impersonate someone     account security
-
-  Denial-of-service       Overwhelming a service  Insufficient capacity
-  attacks                 so legitimate users     or inadequate traffic
-                          cannot access it        filtering and rate
-                                                  controls
-
-  Web application attacks Abusing a website or    Input-validation flaws,
-                          application to access   injection
-                          or alter data           vulnerabilities, broken
-                                                  access control
-
-  Data theft or leakage   Obtaining confidential  Misconfigured storage,
-                          information without     excessive permissions,
-                          authorization           poor encryption or
-                                                  monitoring
-  -----------------------------------------------------------------------
+| Type of cybercrime | What it involves | Example vulnerability exploited |
+|---|---|---|
+| Phishing and online fraud | Deceiving people into revealing information or making payments | Weak message verification, poor awareness, or stolen credentials |
+| Unauthorized access | Accessing accounts or systems without permission | Weak or reused passwords, missing multi-factor authentication, or unpatched software |
+| Malware and ransomware | Installing malicious software that may encrypt or steal data | Unsafe downloads, vulnerable software, or excessive privileges |
+| Identity theft | Misusing personal information to impersonate someone | Data leaks, exposed personal details, or weak account security |
+| Denial-of-service attacks | Overwhelming a service so legitimate users cannot access it | Insufficient capacity or inadequate traffic filtering and rate controls |
+| Web application attacks | Abusing a website or application to access or alter data | Input-validation flaws, injection vulnerabilities, or broken access control |
+| Data theft or leakage | Obtaining confidential information without authorization | Misconfigured storage, excessive permissions, poor encryption, or inadequate monitoring |
 
 ### Prevention
 
@@ -406,33 +322,14 @@ requires technical controls, safe practices and timely response.
 
 ## Q4. Compare and analyze the characteristics of low-band, mid-band, and high-band spectrum for 5G communication.
 
-  -----------------------------------------------------------------------
-  Characteristic    Low band          Mid band          High band
-                                                        (mmWave)
-  ----------------- ----------------- ----------------- -----------------
-  Coverage          Broadest coverage Moderate coverage Shorter coverage
-                    of the three                        range
-
-  Building          Generally best    Moderate          Generally weakest
-  penetration
-
-  Available         Often more        More bandwidth is Very wide
-  bandwidth         limited           commonly          bandwidth can be
-                                      available         available
-
-  Potential data    Usually lower     High capacity and Very high peak
-  rate              peak capacity     speed             data rates in
-                                                        suitable
-                                                        conditions
-
-  Deployment        Can cover large   Moderate site     Often requires
-  density           areas with fewer  density           many closely
-                    sites                               spaced sites
-
-  Best-fit use      Rural areas,      Urban/suburban    Dense venues and
-                    wide-area and     general-purpose   high-capacity
-                    indoor coverage   5G                hotspots
-  -----------------------------------------------------------------------
+| Characteristic | Low Band | Mid Band | High Band (mmWave) |
+|---|---|---|---|
+| Coverage | Broadest coverage of the three | Moderate coverage | Shorter coverage range |
+| Building penetration | Generally best | Moderate | Generally weakest |
+| Available bandwidth | Often more limited | More bandwidth is commonly available | Very wide bandwidth can be available |
+| Potential data rate | Usually lower peak capacity | High capacity and speed | Very high peak data rates in suitable conditions |
+| Deployment density | Can cover large areas with fewer sites | Moderate site density | Often requires many closely spaced sites |
+| Best-fit use | Rural areas, wide-area, and indoor coverage | Urban/suburban general-purpose 5G | Dense venues and high-capacity hotspots |
 
 ### Analysis
 
@@ -461,41 +358,14 @@ The exact details depend on which earlier-generation architecture is
 used for comparison. Broadly, traditional 4G/LTE architecture is
 compared with the more service-based 5G Core.
 
-  ---------
-  Feature                 Traditional mobile      5G architecture
-                          architecture (e.g.,
-                          4G/LTE)
-  ----------------------- ----------------------- ------------------------------
-  Core architecture       EPC with defined        5G Core with service-based
-                          network functions and   architecture for many
-                          interfaces              control-plane functions
-
-  Flexibility             Virtualization is       Designed for cloud-native
-                          possible, but           deployment and modular network
-                          architecture is         functions
-                          generally less
-                          service-oriented
-
-  Scalability             Can scale, but may      Network functions can be
-                          require scaling         scaled and deployed more
-                          particular network      flexibly
-                          elements
-
-  Service differentiation Supports mobile         Designed to support diverse
-                          broadband and QoS       service needs, including
-                          mechanisms              enhanced broadband, massive
-                                                  IoT and
-                                                  low-latency/high-reliability
-                                                  use cases
-
-  Network slicing         Not a native end-to-end Supports network slicing to
-                          capability in the same  tailor logical networks for
-                          way as 5G slicing       different service requirements
-
-  Deployment              Mature, established     Can support more flexible
-                          infrastructure          cloud-based and distributed
-                                                  deployments
-  ---------
+| Feature | Traditional Mobile Architecture (e.g., 4G/LTE) | 5G Architecture |
+|---|---|---|
+| Core architecture | EPC with defined network functions and interfaces | 5G Core with service-based architecture for many control-plane functions |
+| Flexibility | Virtualization is possible, but the architecture is generally less service-oriented | Designed for cloud-native deployment and modular network functions |
+| Scalability | Can scale, but may require scaling particular network elements | Network functions can be scaled and deployed more flexibly |
+| Service differentiation | Supports mobile broadband and QoS mechanisms | Designed for diverse service needs, including enhanced broadband, massive IoT, and low-latency/high-reliability use cases |
+| Network slicing | Not a native end-to-end capability in the same way as 5G slicing | Supports network slicing to tailor logical networks for different service requirements |
+| Deployment | Mature, established infrastructure | Can support more flexible cloud-based and distributed deployments |
 
 ### Analysis
 
