@@ -53,7 +53,7 @@ message.
 -   The network connection affects response time.
 
 **Diagram to study:** [Client-server model diagram and explanation
-(Cloudflare)](https://www.cloudflare.com/learning/serverless/glossary/client-side-vs-server-side/)
+(Cloudflare)]([https://www.cloudflare.com/learning/serverless/glossary/client-side-vs-server-side/](https://www.cloudflare.com/img/learning/serverless/glossary/client-side-vs-server-side/many-to-many-client-server-relationship.svg))
 
 ------------------------------------------------------------------------
 
