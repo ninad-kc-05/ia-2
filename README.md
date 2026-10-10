@@ -175,7 +175,7 @@ prepare for connections. - A browser application can call
 
 **Reference 2: Fetch API and Data Fetching**
 
-[Optimize Data Fetching — Medhat Dawoud](https://medhat.dev/blog/optimize-data-fetching)
+[Optimize Data Fetching — Medhat Dawoud]([https://medhat.dev/blog/optimize-data-fetching](https://medhat.dev/server-request.jpeg))
 
 *What to look for:* How applications use HTTP requests to retrieve data, handle responses, and improve fetching performance.
 
