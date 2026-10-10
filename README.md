@@ -52,8 +52,11 @@ message.
 -   The server may become a performance bottleneck under heavy load.
 -   The network connection affects response time.
 
-**Diagram to study:** [Client-server model diagram and explanation
-(Cloudflare)]([https://www.cloudflare.com/learning/serverless/glossary/client-side-vs-server-side/](https://www.cloudflare.com/img/learning/serverless/glossary/client-side-vs-server-side/many-to-many-client-server-relationship.svg))
+**Diagram to study:** ### Client-Server Architecture Diagram
+
+![Many-to-Many Client-Server Relationship](https://www.cloudflare.com/img/learning/serverless/glossary/client-side-vs-server-side/many-to-many-client-server-relationship.svg)
+
+*Figure: Many-to-many relationship between clients and servers. Source: Cloudflare.*
 
 ------------------------------------------------------------------------
 
