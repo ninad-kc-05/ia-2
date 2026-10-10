@@ -1,4 +1,4 @@
-# CN IA 2 solns
+# CN IA 2 — Solutions
 
 ## Study priority
 
@@ -8,10 +8,9 @@
     marks per question)
 3.  **Module IV --- Transport Layer Protocols** (2 marks per question)
 
+---
 
-------------------------------------------------------------------------
-
-# Priority 1 --- Module V: Application Layer and Network Services
+# Module V — Application Layer and Network Services
 
 ## Q1. Analyze the client-server paradigm and explain how the client and server coordinate to provide a network service.
 
@@ -58,7 +57,7 @@ message.
 
 *Figure: Many-to-many relationship between clients and servers. Source: Cloudflare.*
 
-------------------------------------------------------------------------
+---
 
 ## Q2. Compare and analyze FTP and HTTP with respect to their purpose, communication mechanism, and typical applications.
 
@@ -77,7 +76,7 @@ between web clients and servers.
   Communication model     Client-server;          Request-response
                           traditionally uses      between client and
                           separate control and    server
-                          data connections        
+                          data connections
 
   Typical use             File repositories and   Web pages, web APIs,
                           managed file transfers  images and other web
@@ -90,7 +89,7 @@ between web clients and servers.
 
   Security                Plain FTP does not      HTTPS protects HTTP
                           encrypt traffic; FTPS   using TLS
-                          adds TLS                
+                          adds TLS
 
   Common ports            TCP 21 for FTP control; TCP 80 for HTTP and TCP
                           data connection depends 443 for HTTPS by
@@ -113,7 +112,7 @@ it is not simply "secure FTP." FTPS is FTP protected with TLS.
 
 *What the diagram shows:* A browser fetches a webpage by communicating with a web server. The browser sends HTTP requests for resources, and the server returns responses containing the requested resources. This illustrates the request-response mechanism used by HTTP.
 
-------------------------------------------------------------------------
+---
 
 ## Q3. Compare and analyze two different APIs used for accessing network services based on their communication mechanism and functionality.
 
@@ -128,7 +127,7 @@ and the **HTTP Fetch API**.
   ----------------------- ----------------------- -----------------------
   Main purpose            Provides low-level      Allows web applications
                           network communication   to make HTTP requests
-                          endpoints               
+                          endpoints
 
   Communication           Can support TCP streams Sends HTTP requests and
                           or UDP datagrams, among exposes responses to
@@ -143,12 +142,12 @@ and the **HTTP Fetch API**.
   Typical operations      `socket()`, `bind()`,   `fetch()`, followed by
                           `listen()`, `accept()`, handling the returned
                           `connect()`, `send()`   `Response`
-                          and `recv()`            
+                          and `recv()`
 
   Typical use             Network servers,        Browser applications
                           clients and             and web requests
-                          system-level            
-                          applications            
+                          system-level
+                          applications
 
   Control                 Greater control over    Convenient for
                           transport-level         HTTP-based services but
@@ -163,9 +162,9 @@ TCP or UDP communication. Fetch is appropriate when a web application
 needs to request resources from an HTTP service without implementing the
 transport protocol itself.
 
-**Example** - A TCP server uses `socket()`, `bind()`, and `listen()` to
-prepare for connections. - A browser application can call
-`fetch("https://example.com/data")` to request an HTTP resource.
+**Examples**
+- A TCP server uses `socket()`, `bind()`, and `listen()` to prepare for connections.
+- A browser application can call `fetch("https://example.com/data")` to request an HTTP resource.
 
 **Diagram 1: Client-Server Socket Communication**
 
@@ -175,14 +174,14 @@ prepare for connections. - A browser application can call
 
 **Reference 2: Fetch API and Data Fetching**
 
-[Optimize Data Fetching — Medhat Dawoud]([https://medhat.dev/blog/optimize-data-fetching](https://medhat.dev/server-request.jpeg))
+[Optimize Data Fetching — Medhat Dawoud](https://medhat.dev/blog/optimize-data-fetching)
 
 *What to look for:* How applications use HTTP requests to retrieve data, handle responses, and improve fetching performance.
 
 **Check your class notes:** If your instructor specifies a different
 pair of APIs, use that pair in the final exam answer.
 
-------------------------------------------------------------------------
+---
 
 ## Q4. Compare and analyze HTTP request and HTTP response messages with respect to their structure and purpose.
 
@@ -206,7 +205,7 @@ describing the result.
 3.  **Blank line:** separates headers from the body.
 4.  **Optional body:** the returned webpage, data, or error details.
 
-  -----------------------------------------------------------------------------
+  --------
   Feature                 HTTP request            HTTP response
   ----------------------- ----------------------- -----------------------------
   Direction               Client to server        Server to client
@@ -222,7 +221,7 @@ describing the result.
 
   Body                    Optional; often         Optional; often contains
                           contains submitted data returned data
-  -----------------------------------------------------------------------------
+  --------
 
 ### Example exchange
 
@@ -245,9 +244,9 @@ Content-Type: text/html
 
 *What the diagram shows:* The client establishes a TCP connection with the server and exchanges HTTP requests and responses over multiple HTTP/2 streams. Examples include requests for JavaScript, CSS, and image resources. The streams allow multiple exchanges to share the connection.
 
-------------------------------------------------------------------------
+---
 
-# Priority 2 --- Module VI: Emerging Network Technologies and Security
+# Module VI — Emerging Network Technologies and Security
 
 ## Q1. Analyze the working of MPLS and explain how labels are used to forward packets through the network.
 
@@ -299,7 +298,7 @@ benefits depend on the network design.
 
 *What the diagram shows:* A packet enters the MPLS network through an ingress Label Switching Router (LSR). Intermediate routers forward the packet using labels, and egress routers direct traffic towards the appropriate destination. The diagram illustrates label-based forwarding through an MPLS network.
 
-------------------------------------------------------------------------
+---
 
 ## Q2. Analyze the spectrum requirements of 5G networks and explain why different frequency bands are required.
 
@@ -342,7 +341,7 @@ combine bands according to local coverage and capacity needs.
 
 *What the diagram shows:* Concentric coverage areas illustrate how the maximum cell radius varies across the frequencies shown. Lower frequencies generally provide a greater coverage range, while higher frequencies generally have shorter propagation ranges. Actual coverage depends on terrain, obstacles, transmit power, and deployment conditions.
 
-------------------------------------------------------------------------
+---
 
 ## Q3. Analyze different types of cybercrime and identify the vulnerabilities that can be exploited in each case.
 
@@ -366,7 +365,7 @@ or digital systems are the target or tool of the offence.
   Malware and ransomware  Installing malicious    Unsafe downloads,
                           software, potentially   vulnerable software,
                           encrypting or stealing  excessive privileges
-                          data                    
+                          data
 
   Identity theft          Misusing personal       Data leaks, exposed
                           information to          personal details, weak
@@ -403,7 +402,7 @@ or digital systems are the target or tool of the offence.
 combine with weak processes or human deception. Effective protection
 requires technical controls, safe practices and timely response.
 
-------------------------------------------------------------------------
+---
 
 ## Q4. Compare and analyze the characteristics of low-band, mid-band, and high-band spectrum for 5G communication.
 
@@ -415,7 +414,7 @@ requires technical controls, safe practices and timely response.
                     of the three                        range
 
   Building          Generally best    Moderate          Generally weakest
-  penetration                                           
+  penetration
 
   Available         Often more        More bandwidth is Very wide
   bandwidth         limited           commonly          bandwidth can be
@@ -454,7 +453,7 @@ alone does not guarantee a particular speed.
 
 *What the diagram shows:* Different frequency bands provide different coverage ranges. Low-band frequencies, such as 600 MHz and 700 MHz, cover larger areas. Mid-band frequencies, such as 3.5 GHz, balance coverage and capacity. High-band frequencies, such as 28 GHz, provide high-capacity coverage over smaller areas.
 
-------------------------------------------------------------------------
+---
 
 ## Q5. Compare and analyze traditional mobile network architecture with 5G architecture in terms of flexibility, scalability, and service support.
 
@@ -462,10 +461,10 @@ The exact details depend on which earlier-generation architecture is
 used for comparison. Broadly, traditional 4G/LTE architecture is
 compared with the more service-based 5G Core.
 
-  ------------------------------------------------------------------------------
+  ---------
   Feature                 Traditional mobile      5G architecture
-                          architecture (e.g.,     
-                          4G/LTE)                 
+                          architecture (e.g.,
+                          4G/LTE)
   ----------------------- ----------------------- ------------------------------
   Core architecture       EPC with defined        5G Core with service-based
                           network functions and   architecture for many
@@ -474,13 +473,13 @@ compared with the more service-based 5G Core.
   Flexibility             Virtualization is       Designed for cloud-native
                           possible, but           deployment and modular network
                           architecture is         functions
-                          generally less          
-                          service-oriented        
+                          generally less
+                          service-oriented
 
   Scalability             Can scale, but may      Network functions can be
                           require scaling         scaled and deployed more
                           particular network      flexibly
-                          elements                
+                          elements
 
   Service differentiation Supports mobile         Designed to support diverse
                           broadband and QoS       service needs, including
@@ -496,7 +495,7 @@ compared with the more service-based 5G Core.
   Deployment              Mature, established     Can support more flexible
                           infrastructure          cloud-based and distributed
                                                   deployments
-  ------------------------------------------------------------------------------
+  ---------
 
 ### Analysis
 
@@ -513,7 +512,7 @@ is not automatically better in every circumstance.
 
 *What the diagram shows:* The traditional architecture includes a 4G radio access network and Evolved Packet Core (EPC), with components such as the MME, HSS, SGW and PGW. The 5G architecture shows 5G New Radio (NR), a virtualized and distributed architecture, and 5G Core functions. It also illustrates concepts such as edge computing, software-defined networking and network slicing.
 
-------------------------------------------------------------------------
+---
 
 ## Q6. Analyze how dynamic spectrum sharing can improve the utilization of available radio spectrum.
 
@@ -553,9 +552,9 @@ system's design and scheduling rules.
 during a 4G-to-5G transition, but its benefit depends on traffic
 patterns and implementation.
 
-------------------------------------------------------------------------
+---
 
-# Priority 3 --- Module IV: Transport Layer Protocols
+# Module IV — Transport Layer Protocols
 
 *These are 2-mark questions. Keep each answer concise and focus on the
 definition and main purpose.*
@@ -598,7 +597,8 @@ the byte stream in order to the receiving application.
 
 ![TCP header fields and flags](https://media.geeksforgeeks.org/wp-content/uploads/20260119175421230706/32_bits_1.webp)
 
-*What the diagram shows:* The TCP header contains source and destination ports, sequence and acknowledgement numbers, data offset, control flags, window size, checksum, urgent pointer and optional fields. The flags field contains control bits used for connection establishment, acknowledgement and termination.
+*What the diagram shows:* The TCP header contains source and destination ports, sequence and acknowledgement numbers, data offset, control flags, window size, checksum, urgent pointer, and optional fields. The flags field contains control bits used for connection establishment, acknowledgement, and termination.
+
 **Diagram 2: TCP Connection Termination**
 
 ![TCP connection termination using FIN and ACK](https://upload.wikimedia.org/wikipedia/commons/8/8a/TCP_connection_Termination.png)
@@ -633,24 +633,11 @@ situations.
 
 ## Q8. Compare FTP, SFTP and SCP.
 
-  -----------------------------------------------------------------------
-  Protocol                            Purpose and key point
-  ----------------------------------- -----------------------------------
-  **FTP**                             Transfers files using the File
-                                      Transfer Protocol; ordinary FTP
-                                      does not encrypt credentials or
-                                      data.
-
-  **SFTP**                            Secure file-transfer protocol that
-                                      operates over SSH and supports file
-                                      operations.
-
-  **SCP**                             Uses SSH for secure copying of
-                                      files between systems;
-                                      traditionally focused on copying
-                                      rather than a broad file-management
-                                      interface.
-  -----------------------------------------------------------------------
+| Protocol | Purpose and key point |
+|---|---|
+| **FTP** | Transfers files using the File Transfer Protocol; ordinary FTP does not encrypt credentials or data. |
+| **SFTP** | Secure file-transfer protocol that operates over SSH and supports file operations. |
+| **SCP** | Uses SSH for secure copying of files between systems; traditionally focused on copying rather than a broad file-management interface. |
 
 **Remember:** SFTP is not the same protocol as FTP protected by TLS;
 that latter option is called FTPS.
@@ -663,7 +650,7 @@ timely arrival may matter more than retransmitting late data.
 Applications can implement their own reliability or loss-handling
 mechanisms when needed.
 
-------------------------------------------------------------------------
+---
 
 # Final Revision Checklist
 
