@@ -1,7 +1,3 @@
-from pathlib import Path
-
-content = r"""# AISC IA-2 — Theory Answers in Priority Order
-
 **Course:** Artificial Intelligence & Soft Computing  
 **Question bank:** Modules 4, 5 and 6  
 **Purpose:** Exam-oriented theory preparation. The four ANN numericals (QB Q5–Q8) are deliberately kept in a separate practice track.
@@ -374,7 +370,3 @@ Fuzzy rules are IF–THEN statements that express relationships between fuzzy co
 
 **Important:** These are study-ready draft answers. Before final memorization, check any lecturer-specific definitions, diagrams or examples against the college's teaching material. Module 5 and Module 6 answers are reference-based expansions because the uploaded college notes supplied here focus on Module 4.
 """
-
-path = Path("/mnt/data/README_AISC_IA2_Theory.md")
-path.write_text(content, encoding="utf-8")
-print(f"Updated README with all 18 theory answers in the agreed priority order: {path}")
