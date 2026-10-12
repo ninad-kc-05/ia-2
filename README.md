@@ -1,372 +1,1460 @@
-**Course:** Artificial Intelligence & Soft Computing  
-**Question bank:** Modules 4, 5 and 6  
-**Purpose:** Exam-oriented theory preparation. The four ANN numericals (QB Q5–Q8) are deliberately kept in a separate practice track.
+# Software Engineering — Exam Preparation
+## Modules 4, 5 and 6
 
-## Study strategy
+This README contains priority-wise questions, detailed answers, examples, testing techniques, formulas, and revision notes for Software Engineering exam preparation.
 
-1. Master Module 4 numericals separately, while learning the ANN theory needed to understand them.
-2. Prepare 7-mark theory first: Module 5, then Module 6.
-3. Cover Module 4's 2-mark theory.
-4. Finish Module 5 and Module 6's 2-mark theory.
+### Priority Guide
 
-### Source labels
+- **Priority 1:** Prepare first.
+- **Priority 2:** Prepare next.
+- **Priority 3:** Additional revision.
 
-- **College notes / syllabus / QB:** Directly based on the uploaded AISC syllabus, Module 4 college notes and IA-2 question bank.
-- **Reference Deep Dive:** Expanded using the uploaded reference books where the syllabus/QB only names the topic. The answers are exam-oriented summaries, not verbatim textbook extracts.
+> **Note:** The priorities are study recommendations based on the uploaded question banks, not predictions of the examination paper. Verify the final module scope against the official SEE syllabus.
 
 ---
 
-# PRIORITY 1 — MODULE 5: 7-MARK THEORY
+# CONTENTS
 
-## Q13. Analyze how associative memory retrieves stored information using a suitable example. (7 marks)
+1. [Priority-Wise Question List](#1-priority-wise-question-list)
+2. [Module 4 - Software Design](#2-module-4---software-design)
+3. [Module 5 - Software Testing](#3-module-5---software-testing)
+4. [Module 6 - Risk and Quality Management](#4-module-6---risk-and-quality-management)
+5. [Formula Revision Sheet](#5-formula-revision-sheet)
+6. [Last-Minute Revision Checklist](#6-last-minute-revision-checklist)
+7. [Answer-Writing Strategy](#7-answer-writing-strategy)
 
-**Ideal Answer**
+---
+
+# 1. PRIORITY-WISE QUESTION LIST
+
+## Priority 1 - Prepare First
+
+### Module 4 - Software Design
+
+1. Explain cohesion and its different types.
+2. Explain coupling and its different types with examples.
+
+### Module 5 - Software Testing
+
+3. Differentiate between Black Box Testing and White Box Testing.
+4. Explain Basis Path Testing with a suitable example.
+5. Calculate Cyclomatic Complexity for a given program and identify independent paths.
+6. Explain Boundary Value Analysis and Equivalence Class Partitioning.
+7. Explain different software testing strategies.
+
+### Module 6 - Risk and Quality Management
+
+8. Explain software risk and its different types. Explain the RMMM plan with an example.
+9. Explain Software Quality Assurance (SQA) and its process.
+10. Explain Software Configuration Management (SCM), Version Control, and Change Control.
+
+## Priority 2 - Prepare Next
+
+### Module 4
+
+- Explain software design principles.
+- Explain effective modular design.
+- Differentiate between cohesion and coupling.
+- Explain different architectural styles.
+- Explain the qualities of good software design.
+- What is modularity? Explain its advantages.
+- Explain data-centered architecture.
+
+### Module 5
+
+- Differentiate between Alpha Testing and Beta Testing.
+- Explain Unit Testing and Integration Testing.
+- Explain the software testing process.
+- Explain the principles of software testing.
+- Explain different White Box Testing techniques.
+- Explain different types of software testing.
+
+### Module 6
+
+- Explain software risk and its categories.
+- Explain an RMMM plan with a suitable example.
+- Explain the steps involved in SCM.
+- Differentiate between FTR and Walkthrough.
+- Prepare an RMMM plan for a Student Attendance System.
+- Prepare an RMMM plan for Employee Turnover or Reused Software.
+
+## Priority 3 - Additional Revision
+
+### Module 5
+
+- Solve the `checkDiscount(int amount)` Basis Path Testing problem.
+- Solve the `swapIfGreater(int a, int b)` Cyclomatic Complexity problem.
+- Apply BVA and ECP to a salary range of Rs. 10,000 to Rs. 1,00,000.
+
+### Module 6
+
+- Explain Software Re-engineering.
+- Explain the benefits and activities of SCM.
+- Explain the SQA process.
+
+---
+
+# 2. MODULE 4 - SOFTWARE DESIGN
+
+## Q1. Explain Cohesion and Its Types
 
 ### Definition
-An **associative memory network** is a neural network that stores patterns and retrieves an associated pattern when it receives a complete or partial input pattern.
 
-### Working mechanism
-1. **Storage:** The network is trained or configured to store associations between patterns.
-2. **Input:** A stored pattern, or a noisy/incomplete version of it, is presented to the network.
-3. **Comparison and processing:** The network processes the input using its stored connection weights.
-4. **Association/retrieval:** The network produces the pattern associated with the input.
-5. **Correction where supported by the model:** In recurrent networks such as a Hopfield network, neuron states may be updated repeatedly until the network reaches a stable state.
-6. **Output:** The retrieved pattern is returned.
+Cohesion is the degree to which the elements within a software module are related to one another.
 
-### Example
-Suppose a network stores the association between the pattern representing a particular letter and that complete letter pattern. If a damaged or incomplete version is presented, the network can use the stored association to retrieve the corresponding pattern, depending on the network design and its stored patterns.
+A highly cohesive module performs one specific, well-defined task.
 
-### Types
-- **Auto-associative memory:** Associates an input pattern with itself, helping reconstruct a stored pattern.
-- **Hetero-associative memory:** Associates an input pattern with a different output pattern.
+**A good software design aims for high cohesion.**
+
+### Types of Cohesion
+
+The following list goes from weakest to strongest.
+
+#### 1. Coincidental Cohesion
+
+Unrelated tasks are grouped together without a meaningful relationship.
+
+This is the weakest type of cohesion.
+
+#### 2. Logical Cohesion
+
+Tasks belonging to the same general category are grouped together. A control flag may determine which task is executed.
+
+Example: A single module handles several types of input operations.
+
+#### 3. Temporal Cohesion
+
+Tasks are grouped because they occur at the same time.
+
+Example: Initialization operations performed when a program starts.
+
+#### 4. Procedural Cohesion
+
+Elements are grouped because they must execute in a particular sequence, even if they do not operate on the same data.
+
+#### 5. Communicational Cohesion
+
+Operations are grouped because they use or modify the same data.
+
+Example: Operations that read and update the same customer record.
+
+#### 6. Sequential Cohesion
+
+The output of one operation becomes the input of the next operation.
+
+Example: Reading data, validating it, and then processing the validated data.
+
+#### 7. Functional Cohesion
+
+Every element contributes to one well-defined function.
+
+This is the strongest and most desirable type of cohesion.
+
+### Advantages of High Cohesion
+
+- Improves readability.
+- Makes testing easier.
+- Simplifies maintenance.
+- Improves reusability.
+- Reduces the effect of changes.
+- Makes module responsibilities clear.
+
+### Disadvantages of Low Cohesion
+
+- Makes modules difficult to understand.
+- Increases maintenance effort.
+- Makes testing more complicated.
+- Reduces reusability.
+- Makes changes more likely to affect unrelated functionality.
 
 ### Conclusion
-Associative memory enables retrieval by association rather than requiring the input to be an exact copy of the stored pattern.
 
-**Reference Deep Dive — Associative Memory:** The uploaded syllabus names auto-associative and hetero-associative memory, BAM and Hopfield networks under Module 5. The question bank does not specify a required numerical example, so the example above is illustrative.
+High cohesion makes software easier to understand, test, maintain, and reuse.
 
-## Q15. Analyze associative memory by examining its working mechanism and illustrating it with a suitable example. (7 marks)
+---
 
-**Ideal Answer**
+## Q2. Explain Coupling and Its Types
 
 ### Definition
-Associative memory is a neural-network approach in which a presented pattern is used to retrieve a related pattern stored in the network.
 
-### Working mechanism
-1. **Pattern representation:** Represent the input and output patterns in a suitable form.
-2. **Learning/storage:** Store the required pattern or input-output association in the network's weights.
-3. **Input presentation:** Present a known, partial or noisy pattern.
-4. **Network processing:** The input activates the network through its weighted connections.
-5. **Pattern retrieval:** The network generates the stored pattern or its associated output.
-6. **State updating:** In networks designed for iterative retrieval, such as Hopfield networks, states may be updated until a stable state is reached.
-7. **Output:** The retrieved pattern is provided as the network's response.
+Coupling is the degree of interdependence between software modules.
 
-### Example
-A system stores a complete binary pattern representing a symbol. Later, a version of that pattern with some entries missing or incorrect is presented. The network attempts to retrieve the stored symbol from the partial or noisy input. Successful retrieval depends on the stored patterns and the network's design.
+A module has high coupling when it depends heavily on the internal workings or data of other modules.
 
-### Main forms
-- **Auto-associative:** Input and retrieved pattern are intended to be the same.
-- **Hetero-associative:** Input is associated with a different output pattern.
+**A good software design aims for low coupling.**
+
+### Types of Coupling
+
+#### 1. Content Coupling
+
+One module directly accesses or modifies the internal data or logic of another module.
+
+This is highly undesirable because it creates a strong dependency.
+
+#### 2. Common Coupling
+
+Multiple modules share global data.
+
+A change to the shared data may affect several modules.
+
+#### 3. External Coupling
+
+Modules depend on an externally imposed format, protocol, device, or communication interface.
+
+#### 4. Control Coupling
+
+One module passes control information that determines the behaviour of another module.
+
+Example: Passing a flag that tells another module which operation to execute.
+
+#### 5. Stamp Coupling
+
+A complete data structure is passed to a module even though the module uses only part of it.
+
+#### 6. Data Coupling
+
+Modules communicate by passing only the data required by the receiving module.
+
+This is generally desirable.
+
+#### 7. Message Coupling
+
+Objects communicate through messages or public interfaces without depending on each other's internal implementation.
+
+This is commonly associated with object-oriented design.
+
+> Note: Textbooks may present a different classification or ordering. Follow the terminology used in your course notes.
+
+### Advantages of Low Coupling
+
+- Modules can be modified independently.
+- Testing becomes easier.
+- Debugging becomes simpler.
+- Reusability improves.
+- Changes are less likely to affect unrelated modules.
+- Integration becomes easier.
+
+### Disadvantages of High Coupling
+
+- Changes can affect multiple modules.
+- Testing becomes more difficult.
+- Debugging takes more time.
+- Reusability decreases.
+- Integration risks increase.
 
 ### Conclusion
-Associative memory is useful when a system must recall a pattern from a related, partial or noisy cue.
 
-**Exam note:** Q13 and Q15 overlap significantly. Learn the common working mechanism once, then adapt the emphasis to the wording: Q13 asks specifically about retrieval; Q15 asks for the broader concept and working mechanism.
+Low coupling reduces dependencies and makes software easier to maintain.
 
-## Q14. Analyze the architecture of a Hopfield neural network and examine how its interconnected neurons contribute to associative memory. (7 marks)
+---
 
-**Ideal Answer**
+## Q3. Differentiate Between Cohesion and Coupling
+
+### Cohesion
+
+- Measures the relationship between elements within a module.
+- Focuses on the internal structure of a module.
+- High cohesion is desirable.
+- Improves readability and maintainability.
+- Example: A module dedicated only to calculating tax.
+
+### Coupling
+
+- Measures the dependencies between different modules.
+- Focuses on relationships between modules.
+- Low coupling is desirable.
+- Reduces the impact of changes across modules.
+- Example: A tax module receives required values through parameters instead of accessing another module's internal data directly.
+
+### Important Conclusion
+
+**High Cohesion + Low Coupling = Good Software Design.**
+
+---
+
+## Q4. Explain Software Design Principles
+
+Software design principles help developers create understandable, maintainable, and reusable systems.
+
+### 1. Abstraction
+
+Abstraction focuses on essential characteristics while hiding unnecessary details.
+
+Example: A user can withdraw money from an ATM without knowing the internal banking implementation.
+
+### 2. Modularity
+
+Modularity divides software into smaller, manageable modules.
+
+Each module performs a specific responsibility.
+
+### 3. Information Hiding
+
+Information hiding keeps internal implementation details private and exposes only necessary interfaces.
+
+This reduces dependencies between modules.
+
+### 4. Separation of Concerns
+
+Different responsibilities should be handled separately.
+
+Example: User interface, business logic, and database operations should have distinct responsibilities.
+
+### 5. Functional Independence
+
+Modules should have high cohesion and low coupling.
+
+This improves testing and maintenance.
+
+### 6. Refinement
+
+Refinement means gradually moving from a high-level design to a more detailed design.
+
+### 7. Simplicity
+
+A design should avoid unnecessary complexity.
+
+Simple designs are generally easier to understand and maintain.
+
+### 8. Reusability
+
+Existing components should be reused when appropriate.
+
+This can reduce development time and duplicated effort.
+
+### 9. Consistency
+
+Naming conventions, interfaces, and design rules should be consistent throughout the system.
+
+### 10. Maintainability
+
+Software should be designed so that future changes can be made with minimal effort.
+
+---
+
+## Q5. Explain Effective Modular Design
 
 ### Definition
-A **Hopfield network** is a recurrent neural network used as an associative memory. Its interconnected neurons can store patterns as stable states of the network.
 
-### Architecture
-1. **Neurons:** The network contains a set of neurons whose states represent a pattern.
-2. **Recurrent connections:** Neurons are connected to other neurons, allowing the network's state to influence subsequent updates.
-3. **Connection weights:** Weights encode information about the stored patterns.
-4. **Feedback:** Unlike a feedforward network, signals can circulate through recurrent connections.
-5. **State updating:** Neuron states are updated according to the network's activation/update rule.
-6. **Energy function:** A Hopfield network is commonly described using an energy function. Under the usual conditions for the standard model and update rule, updates move the network toward a stable state.
+Modularity means dividing a software system into smaller components with clearly defined responsibilities.
 
-### Role in associative memory
-1. A complete or corrupted version of a stored pattern is presented as the initial state.
-2. The interconnected neurons process the current state through their weighted connections.
-3. Neuron states are updated.
-4. The network continues updating until it reaches a stable state or attractor.
-5. If the input lies within the retrieval region of a stored pattern, the stable state may correspond to that pattern.
+Effective modular design makes each module easier to develop, understand, test, and maintain.
+
+### Characteristics of an Effective Module
+
+1. Performs a specific responsibility.
+2. Has high cohesion.
+3. Has low coupling.
+4. Hides internal implementation details.
+5. Provides a clear interface.
+6. Can be tested independently.
+7. Minimizes unnecessary dependencies.
+8. Handles errors predictably.
 
 ### Advantages
-- Can retrieve stored patterns from partial or noisy cues.
-- Recurrent connections allow the network to settle into a stable state.
-- Provides a model of content-addressable memory.
 
-### Conclusion
-The recurrent architecture, stored connection weights and stable states enable a Hopfield network to perform associative retrieval.
+- Reduces complexity.
+- Supports parallel development.
+- Improves testing.
+- Encourages reuse.
+- Simplifies maintenance.
+- Makes defects easier to isolate.
+- Makes the software easier to understand.
 
-**Reference Deep Dive — Hopfield Network:** This answer expands the syllabus topic. The exact assumptions and update rule matter when proving convergence; they should not be omitted in a mathematical derivation.
+### Example: Student Attendance System
 
-## Q16. Compare BAM and hetero-associative memory based on architecture, working mechanism, input-output relationship, and applications. (7 marks)
+A Student Attendance System can contain separate modules for:
 
-**Ideal Answer**
+- Student Management
+- Attendance Recording
+- Report Generation
+- Authentication
 
-### Introduction
-Hetero-associative memory stores associations between an input pattern and a different output pattern. **Bidirectional Associative Memory (BAM)** is a bidirectional associative-memory model that can retrieve associated patterns in either direction.
-
-| Basis | Hetero-associative memory (general) | Bidirectional Associative Memory (BAM) |
-|---|---|---|
-| Meaning | Associates one pattern with a different pattern. | A hetero-associative model designed for bidirectional recall. |
-| Architecture | Uses connections that map input patterns to associated output patterns; architecture depends on the model. | Uses two neuron layers connected by weighted links, with recall possible in both directions. |
-| Working | Input activates the network to produce its associated output. | An input pattern in either layer produces an associated pattern in the other layer; alternating updates may be used. |
-| Input-output relationship | Typically described as input pattern → associated output pattern. | Supports A → B and B → A recall. |
-| Direction | May be one-directional, depending on implementation. | Bidirectional by design. |
-| Applications | Pattern association, paired-pattern retrieval and mapping one representation to another. | Bidirectional recall between paired patterns and associative pattern retrieval. |
-
-### Working of BAM
-1. Patterns are stored as associated pairs.
-2. A pattern is presented to one of the two layers.
-3. Weighted connections activate the other layer.
-4. The resulting pattern can be fed back in the reverse direction.
-5. The process may continue until the pair becomes stable.
-
-### Conclusion
-BAM is a particular form of hetero-associative memory that emphasizes recall in both directions. Hetero-associative memory is the broader category.
-
-**Reference Deep Dive — BAM:** This comparison uses the standard conceptual distinction. Specific BAM weight-learning equations were not requested in this question.
+Each module should communicate through well-defined interfaces instead of directly modifying another module's internal data.
 
 ---
 
-# PRIORITY 2 — MODULE 6: 7-MARK THEORY
+## Q6. Explain Architectural Styles
 
-## Q22. Analyze the process of fuzzification and compare the different defuzzification techniques used in a fuzzy inference system. (7 marks)
+An architectural style describes the overall organization of a software system and how its components interact.
 
-**Ideal Answer**
+### 1. Data-Centered Architecture
 
-### 1. Fuzzification
-**Fuzzification** converts a crisp numerical input into degrees of membership in one or more fuzzy sets using membership functions. A membership degree generally lies between 0 and 1.
+A central repository stores data accessed by different components.
 
-For example, a temperature input may have partial membership in the fuzzy sets *Warm* and *Hot* rather than belonging exclusively to one category.
+Advantages:
 
-### 2. Role in a fuzzy inference system
-1. Receive crisp input values.
-2. Use membership functions to determine membership degrees.
-3. Apply fuzzy rules to the fuzzified inputs.
-4. Combine the rule outputs to obtain an aggregated fuzzy output.
-5. Apply defuzzification to obtain a crisp output when required.
+- Centralized data management.
+- Easier sharing of common information.
+- Consistent access to shared data.
 
-### 3. Defuzzification
-**Defuzzification** converts the aggregated fuzzy output into a single crisp value suitable for decision-making or control.
+Disadvantages:
 
-### 4. Defuzzification techniques
+- The repository may become a performance bottleneck.
+- A central repository can become a point of failure if redundancy is not provided.
 
-| Technique | Principle | Key characteristic |
-|---|---|---|
-| Centre of Gravity (COG/Centroid) | Finds the centre of area of the aggregated output membership function. | Uses the overall shape of the output set. |
-| Mean of Maximum (MoM) | Calculates the mean of all output values having the maximum membership degree. | Averages the locations of maximum membership. |
-| Smallest of Maximum (SoM) | Selects the smallest output value at which the maximum membership degree occurs. | Chooses the leftmost maximum. |
-| Largest of Maximum (LoM) | Selects the largest output value at which the maximum membership degree occurs. | Chooses the rightmost maximum. |
+### 2. Data-Flow Architecture
 
-For a discrete universe, the centroid can be represented as:
+Data passes through a sequence of processing components.
 
-\[
-z^* = \frac{\sum_i z_i\mu(z_i)}{\sum_i \mu(z_i)}
-\]
+Each component processes data and sends the result to the next component.
 
-where \(z_i\) is an output value and \(\mu(z_i)\) is its aggregated membership degree. For a continuous universe, the corresponding expression uses integrals.
+Example: A data-processing pipeline.
 
-### 5. Comparison
-- **Centroid:** Considers the overall aggregated membership distribution, but may require more computation.
-- **MoM:** Averages all values that attain the maximum membership.
-- **SoM:** Selects the smallest value among the maxima.
-- **LoM:** Selects the largest value among the maxima.
+### 3. Call-and-Return Architecture
+
+The system is organized into modules that call other modules.
+
+It is commonly used in procedure-oriented systems.
+
+### 4. Layered Architecture
+
+The system is divided into layers, with each layer providing services to the layer above it.
+
+Example:
+
+- Presentation Layer
+- Business Logic Layer
+- Data Access Layer
+
+Advantages:
+
+- Clear separation of responsibilities.
+- Easier maintenance.
+- Improved organization.
+
+### 5. Object-Oriented Architecture
+
+The system is organized around objects that combine data and behaviour.
+
+Objects interact through defined interfaces.
+
+### 6. Client-Server Architecture
+
+Clients request services from servers.
+
+Example: A web browser requesting information from a web server.
+
+---
+
+# 3. MODULE 5 - SOFTWARE TESTING
+
+## Q7. Differentiate Between Black Box Testing and White Box Testing
+
+### Black Box Testing
+
+Black Box Testing checks software behaviour without requiring knowledge of its internal implementation.
+
+It focuses on inputs, outputs, and requirements.
+
+Common techniques:
+
+- Equivalence Class Partitioning
+- Boundary Value Analysis
+- Decision Table Testing
+
+Advantages:
+
+- Tests functionality from the user's perspective.
+- Does not require knowledge of internal code.
+- Can reveal missing or incorrect functionality.
+
+Limitations:
+
+- Does not show which internal paths were executed.
+- Test coverage depends on the quality of specifications and test design.
+
+### White Box Testing
+
+White Box Testing examines the internal structure, logic, and execution paths of software.
+
+Common techniques:
+
+- Statement Coverage
+- Branch Coverage
+- Condition Coverage
+- Basis Path Testing
+- Loop Testing
+
+Advantages:
+
+- Helps identify logic errors.
+- Measures code coverage.
+- Can expose untested branches and paths.
+
+Limitations:
+
+- Usually requires knowledge of the implementation.
+- Cannot independently prove that all user requirements are satisfied.
+
+### Main Difference
+
+Black Box Testing checks whether software behaves correctly from the outside.
+
+White Box Testing checks whether the internal code and logic work correctly.
+
+Both approaches are complementary.
+
+---
+
+## Q8. Differentiate Between Alpha Testing and Beta Testing
+
+### Alpha Testing
+
+- Usually performed in a controlled environment.
+- Often performed by internal testers or selected internal users.
+- Takes place before beta testing.
+- Helps identify defects before wider distribution.
+- Allows the development team to investigate failures in a controlled setting.
+
+### Beta Testing
+
+- Performed by selected external users.
+- Takes place in real or realistic user environments.
+- Usually follows alpha testing.
+- Helps discover environment-specific problems.
+- Provides feedback before final release.
 
 ### Conclusion
-Fuzzification represents crisp inputs using fuzzy membership, fuzzy inference applies rules, and defuzzification converts the final fuzzy result into a crisp value. The appropriate defuzzification technique depends on the required output and system design.
 
-**Reference Deep Dive — Fuzzy Inference:** The listed techniques match the uploaded syllabus. The syllabus names the methods but does not provide their detailed derivations.
+Alpha Testing identifies problems in a controlled environment, while Beta Testing evaluates the software with selected users in more realistic environments.
 
-## Q21. Analyze the different activation functions used in ANN and compare their characteristics and applications, with reference to unipolar and bipolar functions. (7 marks)
+---
 
-**Ideal Answer**
+## Q9. Explain Unit Testing and Integration Testing
+
+### Unit Testing
+
+Unit Testing verifies an individual function, class, or module in isolation.
+
+It aims to identify defects in small components before they are combined with other components.
+
+Example: Testing a function that calculates the total price of an order.
+
+### Advantages of Unit Testing
+
+- Detects defects early.
+- Makes debugging easier.
+- Supports code changes.
+- Improves component reliability.
+
+### Integration Testing
+
+Integration Testing verifies whether connected modules interact correctly.
+
+It focuses on interfaces, data transfer, communication, and dependencies.
+
+### Integration Testing Approaches
+
+#### 1. Top-Down Integration
+
+Testing begins with higher-level modules and proceeds downward.
+
+Stubs may be used to simulate lower-level modules.
+
+#### 2. Bottom-Up Integration
+
+Testing begins with lower-level modules and proceeds upward.
+
+Drivers may be used to simulate higher-level modules.
+
+#### 3. Big-Bang Integration
+
+Many modules are combined before testing.
+
+Fault isolation can be difficult because several modules are integrated at once.
+
+#### 4. Incremental Integration
+
+Modules are combined and tested in smaller groups.
+
+This makes it easier to isolate defects.
+
+### Difference
+
+Unit Testing checks individual components.
+
+Integration Testing checks interactions between components.
+
+---
+
+## Q10. Explain the Software Testing Process
+
+### Step 1: Requirement Analysis
+
+Identify testable requirements and expected behaviour.
+
+The testing team determines what needs to be verified.
+
+### Step 2: Test Planning
+
+Define:
+
+- Testing scope
+- Resources
+- Schedule
+- Responsibilities
+- Testing strategy
+- Risks
+
+### Step 3: Test Case Design
+
+Prepare test cases, test data, and expected results.
+
+Test cases should cover normal inputs, invalid inputs, and important boundary conditions.
+
+### Step 4: Test Environment Setup
+
+Prepare the required hardware, software, tools, databases, and test data.
+
+### Step 5: Test Execution
+
+Execute test cases and record actual results.
+
+Compare actual results with expected results.
+
+### Step 6: Defect Reporting
+
+Record failures and provide enough information to reproduce them.
+
+### Step 7: Retesting
+
+After defects are fixed, test the affected functionality again.
+
+### Step 8: Regression Testing
+
+Check that changes have not broken previously working functionality.
+
+### Step 9: Test Closure
+
+Summarize test results, unresolved defects, and remaining risks.
+
+---
+
+## Q11. Explain Basis Path Testing
 
 ### Definition
-An activation function determines a neuron's output from its net input. It introduces non-linearity where the selected function is non-linear, allowing a network to learn more complex relationships.
 
-### 1. Unipolar step activation function
-The unipolar step function produces either 0 or 1.
+Basis Path Testing is a White Box Testing technique that identifies a set of linearly independent execution paths through a program.
 
-\[
-f(x)=
-\begin{cases}
-1, & x \geq 0\\
-0, & x < 0
-\end{cases}
-\]
+It uses the control-flow graph and Cyclomatic Complexity to determine the number of independent paths in a basis set.
 
-**Characteristics**
-- Output range: 0 to 1.
-- Does not produce negative outputs.
-- Simple and computationally inexpensive.
-- Discontinuous at the threshold and not differentiable there.
+### Procedure
 
-**Applications:** Simple threshold-based decisions and early perceptron-style models.
+1. Draw the control-flow graph.
+2. Count the nodes and edges.
+3. Calculate Cyclomatic Complexity.
+4. Identify independent paths.
+5. Create test cases for those paths.
+6. Execute the tests and verify the results.
 
-### 2. Bipolar step activation function
-The bipolar step function produces either −1 or +1.
+### Cyclomatic Complexity Formula
 
-\[
-f(x)=
-\begin{cases}
-1, & x \geq 0\\
--1, & x < 0
-\end{cases}
-\]
+For a single connected control-flow graph:
 
-**Characteristics**
-- Output range: −1 to +1.
-- Produces both positive and negative outputs.
-- Has a symmetric output range around zero.
-- Is a step function and is not suitable for ordinary gradient-based learning at its discontinuity.
+`V(G) = E - N + 2`
 
-**Applications:** Simple threshold-based models where two classes or states are represented by −1 and +1.
+Where:
 
-### 3. Comparison
+- `V(G)` = Cyclomatic Complexity
+- `E` = Number of edges
+- `N` = Number of nodes
 
-| Feature | Unipolar step | Bipolar step |
-|---|---|---|
-| Output values | 0 and 1 | −1 and +1 |
-| Output range | 0 to 1 | −1 to +1 |
-| Negative output | No | Yes |
-| Symmetry around zero | No | Yes |
-| Computation | Simple | Simple |
-| Differentiability at threshold | Not differentiable | Not differentiable |
-| Typical use | Binary threshold output | Two-state output represented with opposite signs |
+An alternative formula using binary decision points is:
 
-### 4. Other common activation functions
-Depending on the ANN architecture, other functions include:
-- **Sigmoid:** Produces a smooth output between 0 and 1.
-- **Hyperbolic tangent (tanh):** Produces a smooth output between −1 and +1.
+`V(G) = D + 1`
 
-These differ from step functions because they are continuous; their derivatives can be used in gradient-based learning.
+Where:
+
+- `D` = Number of binary decision points
+
+For a graph with `P` connected components, the general formula is:
+
+`V(G) = E - N + 2P`
+
+For one connected routine, `P = 1`, so:
+
+`V(G) = E - N + 2`
+
+### Example: checkDiscount()
+
+```c
+void checkDiscount(int amount) {
+    if (amount > 2000) {
+        print("Apply 25% Discount");
+    } else {
+        print("No Discount");
+    }
+
+    print("Transaction complete");
+}
+```
+
+There is one binary decision.
+
+Formula:
+
+`V(G) = D + 1`
+
+Substitution:
+
+`V(G) = 1 + 1`
+
+Final answer:
+
+`V(G) = 2`
+
+### Independent Paths
+
+**Path 1:**
+
+The condition `amount > 2000` is true.
+
+The discount is applied, and the transaction completes.
+
+**Path 2:**
+
+The condition `amount > 2000` is false.
+
+No discount is applied, and the transaction completes.
+
+### Test Cases
+
+- Input: `2500` — Discount is applied.
+- Input: `1500` — No discount is applied.
+- Input: `2000` — No discount is applied because the condition uses `>` rather than `>=`.
+
+---
+
+## Q12. Calculate Cyclomatic Complexity for swapIfGreater()
+
+Consider the following code:
+
+```c
+void swapIfGreater(int a, int b) {
+    if (a > b) {
+        int temp = a;
+        a = b;
+        b = temp;
+    }
+
+    print("Final order");
+}
+```
+
+There is one binary decision.
+
+### Formula
+
+`V(G) = D + 1`
+
+### Substitution
+
+`V(G) = 1 + 1`
+
+### Final Answer
+
+`V(G) = 2`
+
+### Independent Paths
+
+**Path 1:**
+
+The condition `a > b` is true, so the values are swapped.
+
+**Path 2:**
+
+The condition `a > b` is false, so the values are not swapped.
+
+### Test Cases
+
+- Input `(8, 3)` — True path.
+- Input `(3, 8)` — False path.
+- Input `(5, 5)` — False path because the values are equal.
+
+---
+
+## Q13. Explain Boundary Value Analysis and Equivalence Class Partitioning
+
+### Equivalence Class Partitioning
+
+Equivalence Class Partitioning divides inputs into groups expected to behave similarly.
+
+A representative value is selected from each group to reduce the number of test cases.
+
+### Boundary Value Analysis
+
+Boundary Value Analysis focuses on values at and around input limits.
+
+Defects frequently occur at boundaries because of incorrect comparison operators or range handling.
+
+### Example: Salary Validation
+
+Assume the accepted salary range is Rs. 10,000 to Rs. 1,00,000, inclusive.
+
+The valid condition is:
+
+`10000 <= salary <= 100000`
+
+### Equivalence Classes
+
+**Invalid lower class:**
+
+`salary < 10000`
+
+Expected result: Reject.
+
+**Valid class:**
+
+`10000 <= salary <= 100000`
+
+Expected result: Accept.
+
+**Invalid upper class:**
+
+`salary > 100000`
+
+Expected result: Reject.
+
+### Boundary Test Cases
+
+1. Rs. 9,999 — Reject.
+2. Rs. 10,000 — Accept.
+3. Rs. 10,001 — Accept.
+4. Rs. 99,999 — Accept.
+5. Rs. 1,00,000 — Accept.
+6. Rs. 1,00,001 — Reject.
+
+These values assume integer salary inputs and inclusive endpoints.
+
+### Advantages of BVA and ECP
+
+- Reduce unnecessary test cases.
+- Improve test coverage of important input conditions.
+- Help detect range-validation errors.
+- Make test design more systematic.
+
+---
+
+## Q14. Explain White Box Testing Techniques
+
+### 1. Statement Coverage
+
+Ensures that each executable statement is executed at least once.
+
+### 2. Branch Coverage
+
+Ensures that each decision outcome is tested.
+
+For example, both the true and false branches of an `if` statement should be executed.
+
+### 3. Condition Coverage
+
+Ensures that each Boolean condition evaluates to both true and false where applicable.
+
+### 4. Basis Path Testing
+
+Identifies independent execution paths using Cyclomatic Complexity.
+
+### 5. Loop Testing
+
+Tests loops with zero, one, typical, and boundary numbers of iterations.
+
+### 6. Data-Flow Testing
+
+Examines how variables are defined and used.
 
 ### Conclusion
-Unipolar and bipolar step functions are simple threshold functions with different output ranges. The choice depends on the output representation and learning method. Step functions are generally unsuitable for gradient-based training because of their discontinuity and lack of a useful derivative at the threshold.
 
-**Source alignment:** The college notes explicitly cover unipolar and bipolar step functions. Sigmoid and tanh are included as brief additional context; the question specifically emphasizes unipolar and bipolar functions.
+White Box Testing techniques help examine internal program logic and identify untested statements, branches, and paths.
 
----
-
-# PRIORITY 3 — MODULE 4: 2-MARK THEORY
-
-## Q2. List the major components of an artificial neuron. (2 marks)
-
-**Ideal Answer**
-
-The major components of an artificial neuron are:
-1. Inputs
-2. Weights
-3. Bias
-4. Summation unit
-5. Activation function
-6. Output
-
-The summation unit calculates the weighted sum of inputs, adding bias where used. The activation function determines the final output. *(Based on the college notes.)*
-
-## Q3. What is meant by an activation function? (2 marks)
-
-**Ideal Answer**
-
-An activation function determines a neuron's output based on its net input. It can introduce non-linearity, enabling an ANN to learn complex relationships. Examples in the college notes are unipolar and bipolar step functions.
-
-## Q4. Why are activation functions required in neural networks? (2 marks)
-
-**Ideal Answer**
-
-Activation functions introduce non-linearity into neural networks. Without non-linear activation functions, stacked layers of ordinary linear transformations would still represent a linear transformation, limiting the network's ability to learn complex relationships.
-
-## Q1. Explain the concept of Artificial Neural Network (ANN) and its basic working. (2 marks)
-
-**Ideal Answer**
-
-An Artificial Neural Network (ANN) is a computing model inspired by the human brain. It consists of interconnected processing units called neurons and learns from examples through training.
-
-**Working:** Inputs are multiplied by weights, the weighted values are summed with bias where used, an activation function is applied, and the neuron produces an output.
-
-**Flow:** Input → Weighted Sum → Activation Function → Output.
+Coverage measurements are useful, but high coverage alone does not prove that software is defect-free.
 
 ---
 
-# PRIORITY 4 — MODULE 5: 2-MARK THEORY
+## Q15. Explain Software Testing Strategies
 
-## Q10. Explain hetero-associative memory with a suitable example. (2 marks)
+A common software testing strategy includes the following stages.
 
-**Ideal Answer**
+### 1. Unit Testing
 
-**Hetero-associative memory** stores an association between an input pattern and a different output pattern. When the input pattern is presented, the network retrieves its associated output.
+Tests individual modules or functions.
 
-**Example:** A system stores a person's name associated with that person's identification code. Presenting the name retrieves the associated code.
+### 2. Integration Testing
 
-## Q11. Explain the advantages of Bidirectional Associative Memory (BAM). (2 marks)
+Tests communication between modules.
 
-**Ideal Answer**
+### 3. Validation Testing
 
-Advantages of BAM include:
-1. It supports associative recall in both directions between paired patterns.
-2. It can retrieve an associated pattern when a pattern from either layer is presented.
-3. Its recurrent interaction supports iterative recall toward a stable association under the model's operating conditions.
+Checks whether the software satisfies specified requirements.
 
-## Q12. Explain the concept of the energy function in a Hopfield network. (2 marks)
+### 4. System Testing
 
-**Ideal Answer**
+Tests the complete integrated system.
 
-The **energy function** is a scalar measure associated with the state of a Hopfield network. Under the standard network assumptions and update rule, neuron updates move the network toward lower-energy states. A stable state corresponds to a local minimum of the energy function and may represent a stored pattern.
+### 5. Acceptance Testing
 
-## Q9. Explain the concept of an associative memory network. (2 marks)
+Determines whether the software meets user or customer expectations.
 
-**Ideal Answer**
+### Other Testing Types
 
-An associative memory network is a neural network that stores patterns or associations and retrieves a related stored pattern when given a complete, partial or noisy cue. Auto-associative memory retrieves the same pattern, whereas hetero-associative memory retrieves a different associated pattern.
+**Regression Testing:** Checks whether changes have broken existing functionality.
 
----
+**Smoke Testing:** Performs a quick check of the build's major functions.
 
-# PRIORITY 5 — MODULE 6: 2-MARK THEORY
+**Performance Testing:** Measures response time, throughput, and resource usage.
 
-## Q18. Explain the need for fuzzification in a fuzzy inference system. (2 marks)
+**Load Testing:** Evaluates behaviour under expected or high workloads.
 
-**Ideal Answer**
+**Stress Testing:** Examines behaviour beyond normal operating limits.
 
-Fuzzification converts crisp input values into membership degrees in relevant fuzzy sets. It allows a fuzzy inference system to represent vague concepts such as *low*, *medium* and *high*, and provides the membership values needed to evaluate fuzzy rules.
+**Security Testing:** Checks security properties and weaknesses.
 
-## Q17. Explain the concept of defuzzification in a fuzzy inference system. (2 marks)
+**Usability Testing:** Evaluates ease of use.
 
-**Ideal Answer**
+**Alpha Testing:** Evaluates software in a controlled environment.
 
-Defuzzification converts the aggregated fuzzy output of a fuzzy inference system into a crisp numerical value. This value can be used for a final decision or control action. Common techniques include Centre of Gravity, Mean of Maximum, Smallest of Maximum and Largest of Maximum.
-
-## Q19. Describe the steps involved in fuzzy reasoning. (2 marks)
-
-**Ideal Answer**
-
-The main steps in fuzzy reasoning are:
-1. **Fuzzification:** Convert crisp inputs into membership degrees.
-2. **Rule evaluation:** Evaluate the applicable IF–THEN fuzzy rules.
-3. **Aggregation:** Combine the outputs of the evaluated rules.
-4. **Defuzzification:** Convert the aggregated fuzzy output into a crisp value when required.
-
-## Q20. Describe the relationship between fuzzy rules and fuzzy inference. (2 marks)
-
-**Ideal Answer**
-
-Fuzzy rules are IF–THEN statements that express relationships between fuzzy conditions and conclusions. Fuzzy inference is the process of applying these rules to fuzzified inputs, determining the rules' contributions and combining their outputs to produce a fuzzy result.
+**Beta Testing:** Collects feedback from selected users in realistic environments.
 
 ---
 
-# FINAL PROGRESS TRACKER
+## Q16. Explain the Principles of Software Testing
 
-## Separate numerical track
-- [ ] Q5 — Unipolar step function
-- [ ] Q6 — Bipolar activation function
-- [ ] Q7 — Delta learning rule
-- [ ] Q8 — Multiple outputs using binary sigmoid
+### 1. Testing Shows the Presence of Defects
 
-**Important:** These are study-ready draft answers. Before final memorization, check any lecturer-specific definitions, diagrams or examples against the college's teaching material. Module 5 and Module 6 answers are reference-based expansions because the uploaded college notes supplied here focus on Module 4.
-"""
+Testing can reveal defects, but it cannot prove that no defects exist.
+
+### 2. Exhaustive Testing Is Impractical
+
+Testing every possible input and execution path is generally impossible for non-trivial systems.
+
+### 3. Early Testing
+
+Testing should begin as early as possible in development.
+
+Early defect detection generally reduces correction costs.
+
+### 4. Defect Clustering
+
+Defects often concentrate in a small number of modules.
+
+These modules may require additional testing.
+
+### 5. Pesticide Paradox
+
+Repeating the same tests may eventually reveal fewer new defects.
+
+Test cases should be reviewed and improved over time.
+
+### 6. Context-Dependent Testing
+
+Different software systems require different testing strategies.
+
+Safety-critical software may need more rigorous testing than a small personal utility.
+
+### 7. Absence-of-Errors Fallacy
+
+Software can contain few known defects and still fail if it does not meet user needs.
+
+---
+
+# 4. MODULE 6 - RISK AND QUALITY MANAGEMENT
+
+## Q17. Explain Software Risk and Its Types
+
+### Definition
+
+Software risk is an uncertain event or condition that may negatively affect project cost, schedule, scope, quality, or success.
+
+### 1. Project Risk
+
+Threatens project planning, staffing, budget, or schedule.
+
+Example: A key developer leaves during an important phase.
+
+### 2. Technical Risk
+
+Threatens software quality or implementation.
+
+Example: The selected technology cannot satisfy performance requirements.
+
+### 3. Business Risk
+
+Threatens the commercial success of the product.
+
+Example: Customer requirements change significantly.
+
+### 4. Operational Risk
+
+Threatens normal operation or support.
+
+Example: The production server becomes unavailable.
+
+### 5. External Risk
+
+Arises outside the direct control of the development team.
+
+Example: A third-party service changes its interface.
+
+> Different textbooks use different risk classifications. Follow the categories specified by your course.
+
+### Risk Exposure Formula
+
+`Risk Exposure = Probability x Impact`
+
+Example:
+
+Probability of delay:
+
+`P = 0.30`
+
+Estimated impact:
+
+`I = Rs. 50,000`
+
+Calculation:
+
+`Risk Exposure = 0.30 x 50,000`
+
+Final answer:
+
+`Risk Exposure = Rs. 15,000`
+
+This represents expected loss under the assumed probability and impact.
+
+---
+
+## Q18. Explain the RMMM Plan with an Example
+
+### Definition
+
+RMMM stands for:
+
+- **R:** Risk Mitigation
+- **M:** Monitoring
+- **M:** Management
+
+An RMMM plan identifies important risks, describes preventive actions, tracks warning signs, and specifies responses if risks occur.
+
+### Main Components
+
+1. Risk identification.
+2. Probability and impact assessment.
+3. Mitigation actions.
+4. Monitoring indicators.
+5. Contingency or management actions.
+6. Assignment of responsibility.
+
+### Example: Student Attendance System
+
+#### Risk 1: Attendance Data Is Lost
+
+**Mitigation:**
+
+Schedule automatic backups and restrict database access.
+
+**Monitoring:**
+
+Check backup logs and perform periodic restore tests.
+
+**Management:**
+
+Restore the latest valid backup and reconcile records.
+
+#### Risk 2: Faculty Do Not Adopt the System
+
+**Mitigation:**
+
+Provide training and a simple interface.
+
+**Monitoring:**
+
+Collect usage data and user feedback.
+
+**Management:**
+
+Provide additional training and temporary assistance.
+
+#### Risk 3: Network Failure
+
+**Mitigation:**
+
+Prepare an approved offline attendance procedure.
+
+**Monitoring:**
+
+Monitor system availability and response time.
+
+**Management:**
+
+Record attendance through the fallback procedure and synchronize it later.
+
+#### Risk 4: Incorrect Attendance Entries
+
+**Mitigation:**
+
+Validate inputs and maintain an audit trail.
+
+**Monitoring:**
+
+Review correction rates and unusual patterns.
+
+**Management:**
+
+Correct records through an authorized process.
+
+### Conclusion
+
+An RMMM plan helps a team identify risks early, reduce their likelihood or impact, monitor warning signs, and prepare appropriate responses.
+
+---
+
+## Q19. Explain Software Quality Assurance
+
+### Definition
+
+Software Quality Assurance (SQA) is a planned and systematic set of activities intended to provide confidence that software processes and products conform to requirements, standards, and procedures.
+
+### Objectives of SQA
+
+- Prevent defects.
+- Improve software quality.
+- Ensure compliance with standards.
+- Improve maintainability and reliability.
+- Increase customer satisfaction.
+- Encourage continuous process improvement.
+
+### SQA Process
+
+#### Step 1: Quality Planning
+
+Define quality goals, standards, responsibilities, and procedures.
+
+#### Step 2: Standards Definition
+
+Establish coding, documentation, testing, and review standards.
+
+#### Step 3: Requirements Review
+
+Check requirements for ambiguity, inconsistency, and incompleteness.
+
+#### Step 4: Design Review
+
+Identify design problems before implementation.
+
+#### Step 5: Technical Reviews
+
+Examine code, documents, and other work products.
+
+#### Step 6: Testing Oversight
+
+Check that testing activities are appropriate and documented.
+
+#### Step 7: Defect Tracking
+
+Record defects and track them to closure.
+
+#### Step 8: Quality Measurement
+
+Monitor relevant quality metrics.
+
+#### Step 9: Process Improvement
+
+Identify root causes and improve development practices.
+
+#### Step 10: Quality Reporting
+
+Communicate results and outstanding risks.
+
+### SQA Versus Testing
+
+Testing executes software to reveal failures.
+
+SQA is broader and includes process standards, reviews, audits, quality measurement, and continuous improvement.
+
+---
+
+## Q20. Explain Software Configuration Management
+
+### Definition
+
+Software Configuration Management (SCM) is the process of identifying, organizing, and controlling changes to software artifacts throughout the software life cycle.
+
+### Main SCM Activities
+
+#### 1. Configuration Identification
+
+Identify source code, requirements, documents, test cases, and builds that need control.
+
+#### 2. Version Control
+
+Track file history and maintain different versions.
+
+#### 3. Change Control
+
+Review and approve proposed changes before implementation.
+
+#### 4. Configuration Status Accounting
+
+Record and report the current state of configuration items.
+
+#### 5. Configuration Auditing
+
+Check that configuration items and records are complete and consistent.
+
+#### 6. Build and Release Management
+
+Produce and identify controlled software builds and releases.
+
+### Version Control
+
+Version Control records changes to files over time.
+
+It supports:
+
+- Change history.
+- Branching and merging.
+- Collaboration.
+- Rollback.
+- Identification of release versions.
+
+### Change Control
+
+A typical change-control sequence is:
+
+`Change Request -> Impact Analysis -> Review and Approval -> Implementation -> Testing -> Record Update -> Release`
+
+Change control reduces unauthorized or poorly understood changes.
+
+### Benefits of SCM
+
+- Improves traceability.
+- Prevents version confusion.
+- Supports team collaboration.
+- Helps reproduce builds.
+- Reduces the risk of losing work.
+- Supports controlled releases.
+
+---
+
+## Q21. Differentiate Between FTR and Walkthrough
+
+### Formal Technical Review (FTR)
+
+- Usually follows a defined review procedure.
+- Often uses a review leader or moderator.
+- Uses preparation and review criteria.
+- Records defects and follow-up actions.
+- Checks technical correctness and compliance with standards.
+
+### Walkthrough
+
+- Usually less formal.
+- Often led by the author.
+- The author explains the work product step by step.
+- Participants ask questions and identify possible defects.
+- Helps improve understanding and collect feedback.
+
+### Conclusion
+
+FTR is generally more structured, while a walkthrough is commonly an author-guided review.
+
+Terminology varies between textbooks and organizations, so follow the definition provided in your course notes.
+
+---
+
+## Q22. Explain Software Re-engineering
+
+### Definition
+
+Software Re-engineering is the examination and modification of existing software to improve its structure, maintainability, or other qualities while preserving or carefully evolving its functionality.
+
+### Main Activities
+
+#### 1. Inventory Analysis
+
+Identify systems or components that require improvement.
+
+#### 2. Document Restructuring
+
+Improve outdated or incomplete documentation.
+
+#### 3. Reverse Engineering
+
+Analyse the existing system to recover design or requirements information.
+
+#### 4. Code Restructuring
+
+Improve code organization and readability.
+
+#### 5. Data Restructuring
+
+Improve the organization or format of data.
+
+#### 6. Forward Engineering
+
+Rebuild or evolve the software using the improved understanding.
+
+### Advantages
+
+- Extends the life of existing software.
+- Improves maintainability.
+- Reduces complexity.
+- Preserves valuable functionality.
+- May reduce the risk of complete replacement.
+
+---
+
+# 5. FORMULA REVISION SHEET
+
+## 5.1 Cyclomatic Complexity
+
+For one connected control-flow graph:
+
+`V(G) = E - N + 2`
+
+Where:
+
+- `V(G)` = Cyclomatic Complexity
+- `E` = Number of edges
+- `N` = Number of nodes
+
+Using binary decision points:
+
+`V(G) = D + 1`
+
+Where:
+
+- `D` = Number of binary decision points
+
+For a graph with `P` connected components:
+
+`V(G) = E - N + 2P`
+
+For one connected routine, `P = 1`, so:
+
+`V(G) = E - N + 2`
+
+### Example
+
+If a program contains one binary decision:
+
+`D = 1`
+
+Therefore:
+
+`V(G) = D + 1`
+
+`V(G) = 1 + 1`
+
+**Final Answer: `V(G) = 2`**
+
+## 5.2 Risk Exposure
+
+Formula:
+
+`Risk Exposure = Probability x Impact`
+
+If the probability is given as a percentage, convert it to a decimal before multiplying.
+
+Example:
+
+`30% = 0.30`
+
+If the impact is Rs. 50,000:
+
+`Risk Exposure = 0.30 x 50,000`
+
+**Final Answer: Rs. 15,000**
+
+## 5.3 Salary Validation Range
+
+Assume the accepted salary range is Rs. 10,000 to Rs. 1,00,000, inclusive.
+
+Valid condition:
+
+`10000 <= salary <= 100000`
+
+Boundary values:
+
+- Rs. 9,999 — Reject.
+- Rs. 10,000 — Accept.
+- Rs. 10,001 — Accept.
+- Rs. 99,999 — Accept.
+- Rs. 1,00,000 — Accept.
+- Rs. 1,00,001 — Reject.
+
+---
+
+# 6. LAST-MINUTE REVISION CHECKLIST
+
+## Module 4 - Software Design
+
+- [ ] Definition and types of cohesion.
+- [ ] Definition and types of coupling.
+- [ ] Cohesion versus coupling.
+- [ ] Software design principles.
+- [ ] Effective modular design.
+- [ ] Architectural styles.
+- [ ] Data-centered architecture.
+
+## Module 5 - Software Testing
+
+- [ ] Black Box versus White Box Testing.
+- [ ] Alpha versus Beta Testing.
+- [ ] Unit versus Integration Testing.
+- [ ] Software testing process.
+- [ ] Software testing strategies.
+- [ ] Basis Path Testing.
+- [ ] Cyclomatic Complexity formulas.
+- [ ] Independent execution paths.
+- [ ] Boundary Value Analysis.
+- [ ] Equivalence Class Partitioning.
+- [ ] White Box Testing techniques.
+- [ ] Principles of software testing.
+
+## Module 6 - Risk and Quality Management
+
+- [ ] Software risk categories.
+- [ ] Risk Exposure formula.
+- [ ] RMMM plan and example.
+- [ ] SQA definition and process.
+- [ ] SCM activities.
+- [ ] Version Control and Change Control.
+- [ ] FTR versus Walkthrough.
+- [ ] Software Re-engineering.
+
+---
+
+# 7. ANSWER-WRITING STRATEGY
+
+## For a 2-Mark Question
+
+1. Write a clear definition.
+2. Add one or two important points.
+3. Include a small example if useful.
+
+## For a 7-Mark Question
+
+1. Start with a definition.
+2. Explain the main concepts under clear headings.
+3. Use numbered lists for steps or types.
+4. Include a comparison when relevant.
+5. Add a suitable example.
+6. Write formulas separately and substitute values step by step.
+7. End with a brief conclusion.
+
+## For Numerical Questions
+
+Always show:
+
+1. The formula.
+2. The meaning of the variables.
+3. The values substituted into the formula.
+4. The calculation.
+5. The final answer.
+6. A short interpretation of the result.
+
+---
+
+**Final preparation tip:** Finish Priority 1 first, practise the Module 5 numerical questions, and then revise the remaining questions module by module.
