@@ -1,1460 +1,543 @@
-# Software Engineering — Exam Preparation
-## Modules 4, 5 and 6
+DWM IA-II Question Bank — Modules IV, V & VI
+## 16 Answers | 7-Mark Exam Format
 
-This README contains priority-wise questions, detailed answers, examples, testing techniques, formulas, and revision notes for Software Engineering exam preparation.
+> **Format:** GitHub README Markdown. Formulas use `$...$` inline and `$$...$$` on separate lines.
 
-### Priority Guide
+## Table of Contents
+Table of Contents
 
-- **Priority 1:** Prepare first.
-- **Priority 2:** Prepare next.
-- **Priority 3:** Additional revision.
+MODULE IV — CLUSTERING
 
-> **Note:** The priorities are study recommendations based on the uploaded question banks, not predictions of the examination paper. Verify the final module scope against the official SEE syllabus.
+Q1. Explain K-Means clustering with an example.
 
----
+Q2. Explain Agglomerative Hierarchical Clustering using Complete Linkage.
 
-# CONTENTS
+Q3. Explain hierarchical clustering and compare Agglomerative and Divisive methods.
 
-1. [Priority-Wise Question List](#1-priority-wise-question-list)
-2. [Module 4 - Software Design](#2-module-4---software-design)
-3. [Module 5 - Software Testing](#3-module-5---software-testing)
-4. [Module 6 - Risk and Quality Management](#4-module-6---risk-and-quality-management)
-5. [Formula Revision Sheet](#5-formula-revision-sheet)
-6. [Last-Minute Revision Checklist](#6-last-minute-revision-checklist)
-7. [Answer-Writing Strategy](#7-answer-writing-strategy)
+Q4. Explain DBSCAN clustering with an example.
 
----
+MODULE V — FREQUENT PATTERNS AND ASSOCIATION RULES
 
-# 1. PRIORITY-WISE QUESTION LIST
+Q5. Explain the FP-Growth algorithm with an example.
 
-## Priority 1 - Prepare First
+Q6. Explain the Apriori algorithm with a worked example.
 
-### Module 4 - Software Design
+Q7. Explain association rule generation and Support, Confidence, and Lift.
 
-1. Explain cohesion and its different types.
-2. Explain coupling and its different types with examples.
+Q8. Explain ways to improve Apriori efficiency and compare Apriori with FP-Growth.
 
-### Module 5 - Software Testing
+MODULE VI — SPATIAL AND WEB MINING
 
-3. Differentiate between Black Box Testing and White Box Testing.
-4. Explain Basis Path Testing with a suitable example.
-5. Calculate Cyclomatic Complexity for a given program and identify independent paths.
-6. Explain Boundary Value Analysis and Equivalence Class Partitioning.
-7. Explain different software testing strategies.
+Q9. Explain Web Content Mining with types, process, and applications.
 
-### Module 6 - Risk and Quality Management
+Q10. Differentiate Web Content Mining, Web Structure Mining, and Web Usage Mining.
 
-8. Explain software risk and its different types. Explain the RMMM plan with an example.
-9. Explain Software Quality Assurance (SQA) and its process.
-10. Explain Software Configuration Management (SCM), Version Control, and Change Control.
+Q11. Explain Web Structure Mining and PageRank.
 
-## Priority 2 - Prepare Next
+Q12. Explain Web Usage Mining and its stages.
 
-### Module 4
+Q13. Explain Text Mining and its preprocessing steps.
 
-- Explain software design principles.
-- Explain effective modular design.
-- Differentiate between cohesion and coupling.
-- Explain different architectural styles.
-- Explain the qualities of good software design.
-- What is modularity? Explain its advantages.
-- Explain data-centered architecture.
+Q14. Explain Social Media Mining and its applications.
 
-### Module 5
+Q15. Explain Graph Mining and Frequent Subgraph Mining.
 
-- Differentiate between Alpha Testing and Beta Testing.
-- Explain Unit Testing and Integration Testing.
-- Explain the software testing process.
-- Explain the principles of software testing.
-- Explain different White Box Testing techniques.
-- Explain different types of software testing.
-
-### Module 6
-
-- Explain software risk and its categories.
-- Explain an RMMM plan with a suitable example.
-- Explain the steps involved in SCM.
-- Differentiate between FTR and Walkthrough.
-- Prepare an RMMM plan for a Student Attendance System.
-- Prepare an RMMM plan for Employee Turnover or Reused Software.
-
-## Priority 3 - Additional Revision
-
-### Module 5
-
-- Solve the `checkDiscount(int amount)` Basis Path Testing problem.
-- Solve the `swapIfGreater(int a, int b)` Cyclomatic Complexity problem.
-- Apply BVA and ECP to a salary range of Rs. 10,000 to Rs. 1,00,000.
-
-### Module 6
-
-- Explain Software Re-engineering.
-- Explain the benefits and activities of SCM.
-- Explain the SQA process.
+Q16. Explain Spatial Data Mining and compare it with classical data mining.
 
 ---
 
-# 2. MODULE 4 - SOFTWARE DESIGN
+# Module IV — Clustering
 
-## Q1. Explain Cohesion and Its Types
+## Q1. Explain K-Means clustering with an example.
 
-### Definition
+**Definition:** K-Means is a partitioning algorithm that divides $n$ objects into $k$ clusters. Each object belongs to the cluster whose centroid is nearest.
 
-Cohesion is the degree to which the elements within a software module are related to one another.
+**Objective function:**
 
-A highly cohesive module performs one specific, well-defined task.
+$$SSE=\sum_{j=1}^{k}\sum_{x_i\in C_j}\|x_i-\mu_j\|^2$$
 
-**A good software design aims for high cohesion.**
+Here, $C_j$ is cluster $j$ and $\mu_j$ is its centroid.
 
-### Types of Cohesion
+**Algorithm**
+1. Select the number of clusters $k$.
+2. Initialize $k$ centroids.
+3. Assign every point to its nearest centroid.
+4. Recalculate each centroid as the mean of points assigned to that cluster.
+5. Repeat assignment and update until assignments or centroids stop changing significantly.
+6. Return the clusters and their centroids.
 
-The following list goes from weakest to strongest.
+Centroid formula:
 
-#### 1. Coincidental Cohesion
+$$\mu_j=\frac{1}{|C_j|}\sum_{x_i\in C_j}x_i$$
 
-Unrelated tasks are grouped together without a meaningful relationship.
+**Example:** Data points are $1,2,3,10,11,12$ and $k=2$. Start with centroids 2 and 11. Points 1, 2, 3 form one cluster and points 10, 11, 12 form the other.
 
-This is the weakest type of cohesion.
+$$\mu_1=\frac{1+2+3}{3}=2,\qquad \mu_2=\frac{10+11+12}{3}=11$$
 
-#### 2. Logical Cohesion
+Assignments remain unchanged, so the algorithm converges to $\{1,2,3\}$ and $\{10,11,12\}$.
 
-Tasks belonging to the same general category are grouped together. A control flag may determine which task is executed.
+**Advantages:** simple, fast, scalable, and easy to implement.  
+**Limitations:** requires $k$ beforehand; sensitive to initialization and outliers; works best for compact, roughly spherical clusters; numerical attributes with different scales may need standardization.  
+**Applications:** customer segmentation, image compression, and document grouping.
 
-Example: A single module handles several types of input operations.
+## Q2. Explain Agglomerative Hierarchical Clustering using Complete Linkage.
 
-#### 3. Temporal Cohesion
+**Definition:** Agglomerative Hierarchical Clustering (AHC) is a bottom-up method. Initially every object is a separate cluster. The closest clusters are repeatedly merged.
 
-Tasks are grouped because they occur at the same time.
+**Complete-linkage distance** is the maximum distance between any object in one cluster and any object in the other:
 
-Example: Initialization operations performed when a program starts.
+$$D(A,B)=\max_{x\in A,\;y\in B}d(x,y)$$
 
-#### 4. Procedural Cohesion
+**Algorithm**
+1. Put every object in its own cluster.
+2. Calculate the pairwise distance matrix.
+3. Find the two clusters with the smallest complete-linkage distance.
+4. Merge them.
+5. Recalculate distances from the merged cluster to the remaining clusters using complete linkage.
+6. Repeat until the desired number of clusters remains or all objects form one cluster.
+7. Represent the result with a dendrogram.
 
-Elements are grouped because they must execute in a particular sequence, even if they do not operate on the same data.
+**Example:** Let A=1, B=2, C=8, D=9. First, merge A and B at distance 1 and C and D at distance 1. The distance between clusters $\{A,B\}$ and $\{C,D\}$ is:
 
-#### 5. Communicational Cohesion
+$$D(\{A,B\},\{C,D\})=\max(8,9,6,7)=9$$
 
-Operations are grouped because they use or modify the same data.
+Thus, cutting the dendrogram before the final merge gives clusters $\{A,B\}$ and $\{C,D\}$.
 
-Example: Operations that read and update the same customer record.
+**Advantages:** creates a hierarchy; does not require the final cluster count initially; complete linkage tends to avoid chaining.  
+**Limitations:** computationally costly for large datasets; early merges are not normally undone; sensitive to distance choice and outliers.
 
-#### 6. Sequential Cohesion
+## Q3. Explain hierarchical clustering and compare Agglomerative and Divisive methods.
 
-The output of one operation becomes the input of the next operation.
+**Definition:** Hierarchical clustering creates nested groups represented by a tree called a **dendrogram**.
 
-Example: Reading data, validating it, and then processing the validated data.
+**Agglomerative (bottom-up):**
+1. Start with one cluster per object.
+2. Find the closest pair of clusters.
+3. Merge them.
+4. Recalculate distances using a linkage method.
+5. Repeat until the stopping condition is reached.
 
-#### 7. Functional Cohesion
+**Divisive (top-down):**
+1. Start with all objects in one cluster.
+2. Select a cluster to split.
+3. Divide it into smaller clusters.
+4. Repeat recursively until the desired cluster structure is reached.
 
-Every element contributes to one well-defined function.
+**Linkage methods**
+- Single linkage: $$D(A,B)=\min_{x\in A,y\in B}d(x,y)$$
+- Complete linkage: $$D(A,B)=\max_{x\in A,y\in B}d(x,y)$$
+- Average linkage: average of all cross-cluster distances.
+- Ward's method: chooses the merge that produces the smallest increase in within-cluster variance.
 
-This is the strongest and most desirable type of cohesion.
+| Agglomerative | Divisive |
+|---|---|
+| Bottom-up | Top-down |
+| Starts with separate objects | Starts with one cluster |
+| Repeatedly merges clusters | Repeatedly splits clusters |
+| Common and straightforward | Splitting can be computationally expensive |
+| Merge choices are generally irreversible | Split choices are generally irreversible |
 
-### Advantages of High Cohesion
+**Advantages:** produces an interpretable hierarchy and does not require a fixed cluster count at the beginning.  
+**Disadvantages:** can require substantial time and memory; sensitive to noise, distance measures, and irreversible greedy choices.  
+**Applications:** biological taxonomy, document grouping, and customer segmentation.
 
-- Improves readability.
-- Makes testing easier.
-- Simplifies maintenance.
-- Improves reusability.
-- Reduces the effect of changes.
-- Makes module responsibilities clear.
+## Q4. Explain DBSCAN clustering with an example.
 
-### Disadvantages of Low Cohesion
+**Definition:** DBSCAN means *Density-Based Spatial Clustering of Applications with Noise*. It forms clusters in dense regions and labels isolated points as noise.
 
-- Makes modules difficult to understand.
-- Increases maintenance effort.
-- Makes testing more complicated.
-- Reduces reusability.
-- Makes changes more likely to affect unrelated functionality.
+**Parameters**
+- $\varepsilon$: radius of a point's neighborhood.
+- `MinPts`: minimum number of points required in that neighborhood to be a core point.
 
-### Conclusion
+$$N_\varepsilon(p)=\{q\mid d(p,q)\leq\varepsilon\}$$
 
-High cohesion makes software easier to understand, test, maintain, and reuse.
+**Point types**
+1. **Core:** has at least `MinPts` points in its $\varepsilon$-neighborhood (consistently count the point itself according to the convention used).
+2. **Border:** has too few neighbors to be core, but lies within the neighborhood of a core point.
+3. **Noise:** is neither a core point nor density-reachable from a core point.
+
+**Algorithm**
+1. Mark all points unvisited.
+2. Select an unvisited point and find its neighborhood.
+3. If it has fewer than `MinPts` neighbors, temporarily mark it as noise.
+4. Otherwise create a cluster and add its density-reachable neighbors.
+5. Expand the cluster through neighboring core points.
+6. Continue until all points have been visited.
+7. Output clusters and noise points.
+
+**Example:** GPS observations form two dense groups, with one isolated observation far away. With suitable $\varepsilon$ and `MinPts`, DBSCAN identifies two clusters and labels the isolated observation as noise.
+
+**Advantages:** no need to specify cluster count; finds arbitrarily shaped clusters; identifies noise.  
+**Limitations:** parameter selection can be difficult; one density threshold may not suit clusters with different densities; high-dimensional data can reduce effectiveness.  
+**Applications:** GPS analysis, hotspot detection, and outlier detection.
 
 ---
 
-## Q2. Explain Coupling and Its Types
+# Module V — Frequent Patterns and Association Rules
 
-### Definition
+## Q5. Explain the FP-Growth algorithm with an example.
 
-Coupling is the degree of interdependence between software modules.
+**Definition:** FP-Growth mines frequent itemsets without explicitly generating the large candidate sets used by Apriori. It compresses transactions into an **FP-tree**.
 
-A module has high coupling when it depends heavily on the internal workings or data of other modules.
+**Algorithm**
+1. Scan the database and count item frequencies.
+2. Remove items below minimum support.
+3. Sort remaining items by descending frequency.
+4. Insert each reordered transaction into the FP-tree, sharing common prefixes.
+5. Maintain a header table and node links for each item.
+6. For each item, construct its conditional pattern base and conditional FP-tree.
+7. Mine conditional trees recursively and output frequent itemsets.
 
-**A good software design aims for low coupling.**
+**Example**
 
-### Types of Coupling
+| Transaction | Items |
+|---|---|
+| T1 | A, B, D |
+| T2 | B, C, E |
+| T3 | A, B, C, E |
+| T4 | B, E |
 
-#### 1. Content Coupling
+For minimum support count 2: support(B)=4, support(E)=3, support(A)=2, support(C)=2, support(D)=1. Remove D. Sort frequent items by frequency (break ties consistently), reorder each transaction, and insert them into the FP-tree. Shared prefixes reuse nodes. Conditional pattern bases and trees then identify frequent combinations such as $\{B,E\}$.
 
-One module directly accesses or modifies the internal data or logic of another module.
+**FP-tree components:** root node, item nodes with counts, header table, and node links joining occurrences of the same item.
 
-This is highly undesirable because it creates a strong dependency.
+**Advantages:** avoids explicit candidate generation; often requires only two initial full scans; shared prefixes compress data.  
+**Limitations:** tree and conditional structures may consume substantial memory; less compression occurs when transactions share few prefixes; implementation is more complex than Apriori.
 
-#### 2. Common Coupling
+## Q6. Explain the Apriori algorithm with a worked example.
 
-Multiple modules share global data.
+**Definition:** Apriori finds frequent itemsets using the principle that every non-empty subset of a frequent itemset must also be frequent. If an itemset is infrequent, all its supersets are infrequent.
 
-A change to the shared data may affect several modules.
+**Support formula**
 
-#### 3. External Coupling
+$$Support(X)=\frac{\text{Transactions containing }X}{\text{Total transactions}}$$
 
-Modules depend on an externally imposed format, protocol, device, or communication interface.
+An itemset is frequent when its support count meets the minimum support threshold.
 
-#### 4. Control Coupling
+**Algorithm**
+1. Scan transactions to find frequent 1-itemsets $L_1$.
+2. Join frequent itemsets to generate candidates for the next size.
+3. Prune a candidate if any of its subsets is not frequent.
+4. Count candidate support by scanning transactions.
+5. Keep candidates meeting minimum support.
+6. Repeat until no new frequent itemsets are found.
 
-One module passes control information that determines the behaviour of another module.
+**Worked example**
 
-Example: Passing a flag that tells another module which operation to execute.
+| TID | Items |
+|---|---|
+| T1 | Bread, Milk |
+| T2 | Bread, Diaper, Beer, Eggs |
+| T3 | Milk, Diaper, Beer, Cola |
+| T4 | Bread, Milk, Diaper, Beer |
+| T5 | Bread, Milk, Diaper, Cola |
 
-#### 5. Stamp Coupling
+Minimum support count = 3.
 
-A complete data structure is passed to a module even though the module uses only part of it.
+**Pass 1:** Bread=4, Milk=4, Diaper=4, Beer=3, Eggs=1, Cola=2.
 
-#### 6. Data Coupling
+$$L_1=\{Bread,Milk,Diaper,Beer\}$$
 
-Modules communicate by passing only the data required by the receiving module.
+**Pass 2:** Candidate-pair counts:
+- {Bread, Milk}: 3
+- {Bread, Diaper}: 3
+- {Bread, Beer}: 2
+- {Milk, Diaper}: 3
+- {Milk, Beer}: 2
+- {Diaper, Beer}: 3
 
-This is generally desirable.
+Thus:
 
-#### 7. Message Coupling
+$$L_2=\{\{Bread,Milk\},\{Bread,Diaper\},\{Milk,Diaper\},\{Diaper,Beer\}\}$$
 
-Objects communicate through messages or public interfaces without depending on each other's internal implementation.
+**Pass 3:** {Bread, Milk, Diaper} is considered because all its pairs are frequent, but it occurs only in T4 and T5 (support count 2). It is not frequent at threshold 3. Other candidates are pruned or counted similarly. No frequent 3-itemset remains, so the algorithm stops.
 
-This is commonly associated with object-oriented design.
+**Advantages:** simple, systematic, and prunes candidates using downward closure.  
+**Limitations:** repeated scans and large candidate sets can make it slow, especially for dense datasets or low minimum support.
 
-> Note: Textbooks may present a different classification or ordering. Follow the terminology used in your course notes.
+## Q7. Explain association rule generation and Support, Confidence, and Lift.
 
-### Advantages of Low Coupling
+**Definition:** An association rule has the form $X\rightarrow Y$, where $X$ and $Y$ are disjoint itemsets. It expresses a pattern in which transactions containing $X$ also tend to contain $Y$.
 
-- Modules can be modified independently.
-- Testing becomes easier.
-- Debugging becomes simpler.
-- Reusability improves.
-- Changes are less likely to affect unrelated modules.
-- Integration becomes easier.
+**1. Support**
 
-### Disadvantages of High Coupling
+$$Support(X\rightarrow Y)=Support(X\cup Y)=\frac{\text{count}(X\cup Y)}{N}$$
 
-- Changes can affect multiple modules.
-- Testing becomes more difficult.
-- Debugging takes more time.
-- Reusability decreases.
-- Integration risks increase.
+It measures how often $X$ and $Y$ occur together.
 
-### Conclusion
+**2. Confidence**
 
-Low coupling reduces dependencies and makes software easier to maintain.
+$$Confidence(X\rightarrow Y)=\frac{Support(X\cup Y)}{Support(X)}$$
+
+It measures the fraction of transactions containing $X$ that also contain $Y$.
+
+**3. Lift**
+
+$$Lift(X\rightarrow Y)=\frac{Confidence(X\rightarrow Y)}{Support(Y)}$$
+
+- Lift $>1$: positive association.
+- Lift $=1$: independence under this measure.
+- Lift $<1$: negative association.
+
+**Rule-generation steps**
+1. Find frequent itemsets using Apriori or FP-Growth.
+2. For each frequent itemset, generate rules from its non-empty subsets.
+3. Calculate confidence for each rule.
+4. Keep rules meeting minimum confidence.
+5. Use lift and domain knowledge to evaluate usefulness.
+
+**Example:** Out of 100 transactions, 40 contain bread, 30 contain milk, and 20 contain both.
+
+$$Support(Bread\rightarrow Milk)=\frac{20}{100}=0.20$$
+
+$$Confidence(Bread\rightarrow Milk)=\frac{20}{40}=0.50$$
+
+$$Lift(Bread\rightarrow Milk)=\frac{0.50}{0.30}\approx1.67$$
+
+The rule has 20% support, 50% confidence, and lift about 1.67, indicating positive association in this dataset.
+
+**Applications:** market-basket analysis, cross-selling, product placement, recommendation systems, and web clickstream analysis. Association does not prove causation.
+
+## Q8. Explain ways to improve Apriori efficiency and compare Apriori with FP-Growth.
+
+**Ways to improve Apriori**
+1. **Hash-based counting:** hash candidates into buckets and prune buckets whose counts cannot reach minimum support.
+2. **Transaction reduction:** remove transactions that cannot contain any future frequent itemsets.
+3. **Partitioning:** mine each partition locally and verify the combined candidate set globally. A globally frequent itemset must be frequent in at least one partition.
+4. **Sampling:** mine a representative sample, then verify candidates against the complete database.
+5. **Dynamic Itemset Counting:** introduce candidates during a database scan rather than waiting for a full new pass at every level.
+6. **Efficient structures:** use sorted lists, bitmaps, or vertical transaction-ID sets for faster support counting.
+7. **Pruning:** remove candidates whose subsets are infrequent before support counting.
+
+| Feature | Apriori | FP-Growth |
+|---|---|---|
+| Candidate generation | Explicit candidates | Avoids explicit candidate generation |
+| Database scans | Usually one per itemset level | Typically two initial scans, plus tree mining |
+| Main structure | Candidate itemsets and counts | FP-tree and header table |
+| Main work | Join, prune, count | Build tree and mine conditional trees |
+| Complexity of implementation | Easier | More complex |
+| Typical bottleneck | Huge candidate sets and repeated scans | Tree memory and recursive mining |
+
+**Conclusion:** Apriori is easy to understand but can generate many candidates and rescan data repeatedly. FP-Growth often performs better when transactions share prefixes and can be compressed well. Performance depends on dataset size, density, and memory.
 
 ---
 
-## Q3. Differentiate Between Cohesion and Coupling
+# Module VI — Spatial and Web Mining
 
-### Cohesion
+## Q9. Explain Web Content Mining with types, process, and applications.
 
-- Measures the relationship between elements within a module.
-- Focuses on the internal structure of a module.
-- High cohesion is desirable.
-- Improves readability and maintainability.
-- Example: A module dedicated only to calculating tax.
+**Definition:** Web Content Mining extracts useful information from web-page contents, including text, images, audio, video, tables, and structured or semi-structured data.
 
-### Coupling
+**Types**
+1. **Text mining:** keywords, topics, entities, and opinions.
+2. **Multimedia mining:** image, audio, and video analysis.
+3. **Structured-content mining:** information from tables, lists, and structured page elements.
+4. **Semi-structured-content mining:** extraction from HTML/XML documents with partially regular structure.
 
-- Measures the dependencies between different modules.
-- Focuses on relationships between modules.
-- Low coupling is desirable.
-- Reduces the impact of changes across modules.
-- Example: A tax module receives required values through parameters instead of accessing another module's internal data directly.
+**Process**
+1. Collect pages through approved crawlers, APIs, or URL lists.
+2. Parse HTML/XML and extract relevant content.
+3. Clean scripts, markup, duplicates, advertisements, and irrelevant text.
+4. Preprocess content: tokenize, normalize, remove stop words, and optionally stem or lemmatize.
+5. Apply classification, clustering, sentiment analysis, information extraction, or topic analysis.
+6. Evaluate results and present them as reports, summaries, or dashboards.
 
-### Important Conclusion
+**Example:** An online store analyzes customer reviews. Text mining finds recurring topics such as “battery” and “delivery”; sentiment analysis identifies positive and negative opinions. The store can then prioritize product and service improvements.
 
-**High Cohesion + Low Coupling = Good Software Design.**
+**Applications:** search indexing, product-review analysis, news classification, recommendations, price/specification extraction, and spam detection.
 
----
+**Advantages:** processes large quantities of content and uncovers patterns quickly.  
+**Limitations:** pages change; data can be noisy, duplicated, biased, multilingual, or subject to privacy and copyright constraints.
 
-## Q4. Explain Software Design Principles
+## Q10. Differentiate Web Content, Web Structure, and Web Usage Mining.
 
-Software design principles help developers create understandable, maintainable, and reusable systems.
+**Web Mining** applies data-mining techniques to web data and has three major categories:
 
-### 1. Abstraction
+| Type | Data analyzed | Objective | Example |
+|---|---|---|---|
+| Web Content Mining | Text, images, video, tables, metadata | Understand page contents | Analyze product reviews |
+| Web Structure Mining | Hyperlinks and site structure | Discover relationships and page authority | Rank linked pages |
+| Web Usage Mining | Server logs, clickstreams, sessions | Understand user behavior | Improve recommendations |
 
-Abstraction focuses on essential characteristics while hiding unnecessary details.
+**1. Web Content Mining:** analyzes actual page contents using text mining, information extraction, classification, clustering, and multimedia analysis.
 
-Example: A user can withdraw money from an ATM without knowing the internal banking implementation.
+**2. Web Structure Mining:** treats pages as nodes and hyperlinks as directed edges. It analyzes incoming/outgoing links, hubs, authorities, and link-based importance.
 
-### 2. Modularity
+**3. Web Usage Mining:** analyzes logs and clickstreams. Typical stages are data cleaning, user identification, session identification, path completion, pattern discovery, and pattern analysis.
 
-Modularity divides software into smaller, manageable modules.
+**Applications:** search engines, personalization, website redesign, customer segmentation, conversion analysis, fraud detection, and marketing.
 
-Each module performs a specific responsibility.
+**Conclusion:** Content mining explains **what a page contains**; structure mining explains **how pages connect**; usage mining explains **how users navigate a site**.
 
-### 3. Information Hiding
+## Q11. Explain Web Structure Mining and PageRank.
 
-Information hiding keeps internal implementation details private and exposes only necessary interfaces.
+**Definition:** Web Structure Mining discovers patterns in hyperlinks among web pages. It represents the web as a directed graph, where pages are nodes and links are directed edges.
 
-This reduces dependencies between modules.
+**Main approaches**
+- In-link analysis: links pointing to a page.
+- Out-link analysis: links leaving a page.
+- Link-based ranking: estimates page importance.
+- Community detection: finds groups of interconnected pages.
 
-### 4. Separation of Concerns
+**PageRank** estimates page importance by sharing rank through outgoing links.
 
-Different responsibilities should be handled separately.
+$$PR(A)=\frac{1-d}{N}+d\sum_{T_i\rightarrow A}\frac{PR(T_i)}{C(T_i)}$$
 
-Example: User interface, business logic, and database operations should have distinct responsibilities.
+where $PR(A)$ is the rank of A, $d$ is the damping factor (often 0.85), $N$ is the number of pages, $T_i$ are pages linking to A, and $C(T_i)$ is the number of outgoing links from $T_i$.
 
-### 5. Functional Independence
+**Algorithm**
+1. Represent pages and hyperlinks as a directed graph.
+2. Initialize page ranks equally, commonly $1/N$.
+3. Select the damping factor.
+4. Calculate updated ranks using the formula.
+5. Repeat until ranks stabilize or an iteration limit is reached.
+6. Sort pages by final rank.
 
-Modules should have high cohesion and low coupling.
+**Example:** If B and C link to A, and B and C have high rank with relatively few outgoing links, they pass more rank to A. Therefore A may receive a high score.
 
-This improves testing and maintenance.
+**Applications:** search ranking, finding authoritative pages, suspicious-link analysis, and website navigation analysis.  
+**Limitations:** link spam can manipulate rankings; PageRank does not alone measure content quality, freshness, or user intent.
 
-### 6. Refinement
+## Q12. Explain Web Usage Mining and its stages.
 
-Refinement means gradually moving from a high-level design to a more detailed design.
+**Definition:** Web Usage Mining discovers user-navigation and interaction patterns from web access data such as server logs, clickstreams, and session events.
 
-### 7. Simplicity
+**Data sources:** web-server logs, proxy logs, application logs, authorized client-side events, and clickstreams.
 
-A design should avoid unnecessary complexity.
+**Stages**
+1. **Data collection:** gather logs and relevant events.
+2. **Cleaning:** remove irrelevant requests, bots, failed requests, and static-resource requests when not needed.
+3. **User identification:** distinguish users using authenticated IDs, cookies where permitted, or cautious inference.
+4. **Session identification:** group activity into sessions using explicit sessions or a timeout.
+5. **Path completion:** infer missing requests caused by caching or incomplete logs.
+6. **Transformation:** convert records into user sessions and page sequences.
+7. **Pattern discovery:** apply clustering, association rules, classification, sequence mining, or statistical analysis.
+8. **Pattern analysis:** interpret the patterns and improve the site.
 
-Simple designs are generally easier to understand and maintain.
+**Example:** A shopping site finds that many users open a product page, visit shipping information, and then leave. This may indicate that shipping costs are unclear or too high. The company can make shipping information clearer and evaluate the result.
 
-### 8. Reusability
+**Applications:** website redesign, personalization, recommendations, conversion-funnel analysis, fraud detection, and capacity planning.
 
-Existing components should be reused when appropriate.
+**Privacy note:** usage mining should follow applicable privacy laws, consent rules, data minimization, and security practices.
 
-This can reduce development time and duplicated effort.
+## Q13. Explain Text Mining and its preprocessing steps.
 
-### 9. Consistency
+**Definition:** Text Mining extracts useful patterns, topics, and relationships from unstructured text using natural-language processing, statistics, and machine learning.
 
-Naming conventions, interfaces, and design rules should be consistent throughout the system.
+**Process**
+1. **Collection:** gather reviews, reports, messages, articles, or documents.
+2. **Cleaning:** remove markup, duplicates, malformed characters, and irrelevant elements.
+3. **Tokenization:** split text into words, sentences, or tokens.
+4. **Normalization:** convert words to a consistent form, such as lowercase.
+5. **Stop-word removal:** remove common words that contribute little to the task.
+6. **Stemming/lemmatization:** reduce related forms to a common root or lemma.
+7. **Feature representation:** use bag-of-words, TF-IDF, or embeddings.
+8. **Mining:** perform classification, clustering, sentiment analysis, topic modelling, or information extraction.
+9. **Evaluation:** assess performance and review errors.
 
-### 10. Maintainability
+**TF-IDF**
 
-Software should be designed so that future changes can be made with minimal effort.
+$$TFIDF(t,d)=TF(t,d)\times IDF(t)$$
 
----
+One common inverse document frequency definition is:
 
-## Q5. Explain Effective Modular Design
+$$IDF(t)=\log\left(\frac{N}{DF(t)}\right)$$
 
-### Definition
+Here, $N$ is the number of documents and $DF(t)$ is the number of documents containing term $t$.
 
-Modularity means dividing a software system into smaller components with clearly defined responsibilities.
+**Example:** “The camera is excellent and the camera is clear” may be lowercased, tokenized, and stripped of common words. The remaining terms—camera, excellent, camera, clear—can become features for a sentiment classifier.
 
-Effective modular design makes each module easier to develop, understand, test, and maintain.
+**Applications:** sentiment analysis, spam filtering, document categorization, search, summarization, customer-feedback analysis, and trend detection.
 
-### Characteristics of an Effective Module
+## Q14. Explain Social Media Mining and its applications.
 
-1. Performs a specific responsibility.
-2. Has high cohesion.
-3. Has low coupling.
-4. Hides internal implementation details.
-5. Provides a clear interface.
-6. Can be tested independently.
-7. Minimizes unnecessary dependencies.
-8. Handles errors predictably.
+**Definition:** Social Media Mining analyzes social-media posts, comments, reactions, hashtags, and interaction networks to discover patterns and insights.
 
-### Advantages
+**Data types**
+1. Text: posts, captions, comments, reviews.
+2. Network: followers, mentions, replies, shares.
+3. Engagement: likes, reactions, reposts, clicks.
+4. Multimedia: images, audio, video.
+5. Temporal: timestamps and activity changes.
 
-- Reduces complexity.
-- Supports parallel development.
-- Improves testing.
-- Encourages reuse.
-- Simplifies maintenance.
-- Makes defects easier to isolate.
-- Makes the software easier to understand.
+**Process**
+1. Define the objective and authorized data sources.
+2. Collect data through approved APIs or datasets.
+3. Clean duplicates, spam, bots, and malformed records.
+4. Preprocess text and extract features.
+5. Analyze content using sentiment analysis, topic detection, or classification.
+6. Analyze networks with centrality and community detection.
+7. Validate and interpret results.
+8. Present results using reports or dashboards.
 
-### Example: Student Attendance System
+**Techniques:** sentiment analysis, trend detection, topic modelling, community detection, influencer analysis, spam detection, and time-series analysis.
 
-A Student Attendance System can contain separate modules for:
+**Applications:** brand monitoring, customer feedback, public-opinion analysis, campaign measurement, trend detection, recommendation systems, and influencer analysis.
 
-- Student Management
-- Attendance Recording
-- Report Generation
-- Authentication
+**Ethical considerations:** use authorized data, minimize collection, anonymize when possible, follow platform rules, and account for bias, bots, context, and privacy.
 
-Each module should communicate through well-defined interfaces instead of directly modifying another module's internal data.
+## Q15. Explain Graph Mining and Frequent Subgraph Mining.
 
----
+**Definition:** Graph Mining discovers patterns in graph-structured data. A graph is represented as $G=(V,E)$, where $V$ is the set of vertices and $E$ is the set of edges.
 
-## Q6. Explain Architectural Styles
+**Applications of graph data:** social networks, communication networks, transport networks, citation networks, and molecular structures.
 
-An architectural style describes the overall organization of a software system and how its components interact.
+**Common tasks**
+1. Frequent subgraph mining.
+2. Graph classification.
+3. Node classification.
+4. Link prediction.
+5. Community detection.
+6. Centrality analysis.
 
-### 1. Data-Centered Architecture
+A subgraph is frequent if it occurs in at least the required number or proportion of graphs.
 
-A central repository stores data accessed by different components.
+$$Support(g)=\frac{\text{Number of graphs containing }g}{\text{Total number of graphs}}$$
 
-Advantages:
+A subgraph is frequent when:
 
-- Centralized data management.
-- Easier sharing of common information.
-- Consistent access to shared data.
+$$Support(g)\geq minSupport$$
 
-Disadvantages:
+**General algorithm**
+1. Choose minimum support.
+2. Generate candidate subgraphs.
+3. Count the database graphs containing each candidate.
+4. Remove candidates below minimum support.
+5. Extend frequent subgraphs to create larger candidates.
+6. Repeat until no frequent extensions remain.
+7. Report the frequent subgraphs.
 
-- The repository may become a performance bottleneck.
-- A central repository can become a point of failure if redundancy is not provided.
+**Example:** A three-atom structure appears in 60 of 100 chemical compound graphs. Its support is $60/100=0.60=60\%$. If minimum support is 50%, the subgraph is frequent.
 
-### 2. Data-Flow Architecture
+**Applications:** chemical analysis, bioinformatics, social-network pattern discovery, fraud-ring detection, and knowledge graphs.
 
-Data passes through a sequence of processing components.
+**Challenges:** graph-isomorphism checks, a huge candidate space, memory use, and choosing a meaningful support threshold.
 
-Each component processes data and sends the result to the next component.
+## Q16. Explain Spatial Data Mining and compare it with classical data mining.
 
-Example: A data-processing pipeline.
+**Definition:** Spatial Data Mining discovers patterns and relationships in data associated with geographic locations, coordinates, distances, shapes, regions, and spatial relationships.
 
-### 3. Call-and-Return Architecture
+**Examples:** GPS records, road networks, satellite images, weather maps, hospital locations, disease cases, and GIS data.
 
-The system is organized into modules that call other modules.
+| Classical Data Mining | Spatial Data Mining |
+|---|---|
+| Often handles ordinary records | Handles location-aware objects |
+| Uses attribute relationships | Uses distance, adjacency, containment, and other spatial relations |
+| May treat records as independent | Nearby objects may be spatially autocorrelated |
+| Often uses numeric/categorical similarity | May use geometric distance and spatial predicates |
+| Example: predict customer churn | Example: detect disease clusters by location |
 
-It is commonly used in procedure-oriented systems.
+**Main tasks**
+1. **Spatial classification:** assign classes to locations or regions.
+2. **Spatial clustering:** group nearby or spatially similar objects.
+3. **Spatial association:** discover co-occurring spatial features.
+4. **Hotspot detection:** find regions with unusually concentrated events.
+5. **Spatial outlier detection:** find objects unlike their neighbors.
+6. **Spatial prediction:** estimate values at unobserved locations.
 
-### 4. Layered Architecture
+**Example:** A public-health department maps disease cases and environmental measurements. Spatial clustering identifies areas with unusually high case density. Further analysis can investigate whether these areas are associated with environmental or demographic factors.
 
-The system is divided into layers, with each layer providing services to the layer above it.
+**Applications:** urban planning, disaster management, transportation, agriculture, environmental monitoring, public health, and location-based services.
 
-Example:
+**Challenges:** large datasets, inconsistent coordinate systems, spatial autocorrelation, missing location data, changing geographic boundaries, and location privacy.
 
-- Presentation Layer
-- Business Logic Layer
-- Data Access Layer
-
-Advantages:
-
-- Clear separation of responsibilities.
-- Easier maintenance.
-- Improved organization.
-
-### 5. Object-Oriented Architecture
-
-The system is organized around objects that combine data and behaviour.
-
-Objects interact through defined interfaces.
-
-### 6. Client-Server Architecture
-
-Clients request services from servers.
-
-Example: A web browser requesting information from a web server.
-
----
-
-# 3. MODULE 5 - SOFTWARE TESTING
-
-## Q7. Differentiate Between Black Box Testing and White Box Testing
-
-### Black Box Testing
-
-Black Box Testing checks software behaviour without requiring knowledge of its internal implementation.
-
-It focuses on inputs, outputs, and requirements.
-
-Common techniques:
-
-- Equivalence Class Partitioning
-- Boundary Value Analysis
-- Decision Table Testing
-
-Advantages:
-
-- Tests functionality from the user's perspective.
-- Does not require knowledge of internal code.
-- Can reveal missing or incorrect functionality.
-
-Limitations:
-
-- Does not show which internal paths were executed.
-- Test coverage depends on the quality of specifications and test design.
-
-### White Box Testing
-
-White Box Testing examines the internal structure, logic, and execution paths of software.
-
-Common techniques:
-
-- Statement Coverage
-- Branch Coverage
-- Condition Coverage
-- Basis Path Testing
-- Loop Testing
-
-Advantages:
-
-- Helps identify logic errors.
-- Measures code coverage.
-- Can expose untested branches and paths.
-
-Limitations:
-
-- Usually requires knowledge of the implementation.
-- Cannot independently prove that all user requirements are satisfied.
-
-### Main Difference
-
-Black Box Testing checks whether software behaves correctly from the outside.
-
-White Box Testing checks whether the internal code and logic work correctly.
-
-Both approaches are complementary.
-
----
-
-## Q8. Differentiate Between Alpha Testing and Beta Testing
-
-### Alpha Testing
-
-- Usually performed in a controlled environment.
-- Often performed by internal testers or selected internal users.
-- Takes place before beta testing.
-- Helps identify defects before wider distribution.
-- Allows the development team to investigate failures in a controlled setting.
-
-### Beta Testing
-
-- Performed by selected external users.
-- Takes place in real or realistic user environments.
-- Usually follows alpha testing.
-- Helps discover environment-specific problems.
-- Provides feedback before final release.
-
-### Conclusion
-
-Alpha Testing identifies problems in a controlled environment, while Beta Testing evaluates the software with selected users in more realistic environments.
-
----
-
-## Q9. Explain Unit Testing and Integration Testing
-
-### Unit Testing
-
-Unit Testing verifies an individual function, class, or module in isolation.
-
-It aims to identify defects in small components before they are combined with other components.
-
-Example: Testing a function that calculates the total price of an order.
-
-### Advantages of Unit Testing
-
-- Detects defects early.
-- Makes debugging easier.
-- Supports code changes.
-- Improves component reliability.
-
-### Integration Testing
-
-Integration Testing verifies whether connected modules interact correctly.
-
-It focuses on interfaces, data transfer, communication, and dependencies.
-
-### Integration Testing Approaches
-
-#### 1. Top-Down Integration
-
-Testing begins with higher-level modules and proceeds downward.
-
-Stubs may be used to simulate lower-level modules.
-
-#### 2. Bottom-Up Integration
-
-Testing begins with lower-level modules and proceeds upward.
-
-Drivers may be used to simulate higher-level modules.
-
-#### 3. Big-Bang Integration
-
-Many modules are combined before testing.
-
-Fault isolation can be difficult because several modules are integrated at once.
-
-#### 4. Incremental Integration
-
-Modules are combined and tested in smaller groups.
-
-This makes it easier to isolate defects.
-
-### Difference
-
-Unit Testing checks individual components.
-
-Integration Testing checks interactions between components.
-
----
-
-## Q10. Explain the Software Testing Process
-
-### Step 1: Requirement Analysis
-
-Identify testable requirements and expected behaviour.
-
-The testing team determines what needs to be verified.
-
-### Step 2: Test Planning
-
-Define:
-
-- Testing scope
-- Resources
-- Schedule
-- Responsibilities
-- Testing strategy
-- Risks
-
-### Step 3: Test Case Design
-
-Prepare test cases, test data, and expected results.
-
-Test cases should cover normal inputs, invalid inputs, and important boundary conditions.
-
-### Step 4: Test Environment Setup
-
-Prepare the required hardware, software, tools, databases, and test data.
-
-### Step 5: Test Execution
-
-Execute test cases and record actual results.
-
-Compare actual results with expected results.
-
-### Step 6: Defect Reporting
-
-Record failures and provide enough information to reproduce them.
-
-### Step 7: Retesting
-
-After defects are fixed, test the affected functionality again.
-
-### Step 8: Regression Testing
-
-Check that changes have not broken previously working functionality.
-
-### Step 9: Test Closure
-
-Summarize test results, unresolved defects, and remaining risks.
-
----
-
-## Q11. Explain Basis Path Testing
-
-### Definition
-
-Basis Path Testing is a White Box Testing technique that identifies a set of linearly independent execution paths through a program.
-
-It uses the control-flow graph and Cyclomatic Complexity to determine the number of independent paths in a basis set.
-
-### Procedure
-
-1. Draw the control-flow graph.
-2. Count the nodes and edges.
-3. Calculate Cyclomatic Complexity.
-4. Identify independent paths.
-5. Create test cases for those paths.
-6. Execute the tests and verify the results.
-
-### Cyclomatic Complexity Formula
-
-For a single connected control-flow graph:
-
-`V(G) = E - N + 2`
-
-Where:
-
-- `V(G)` = Cyclomatic Complexity
-- `E` = Number of edges
-- `N` = Number of nodes
-
-An alternative formula using binary decision points is:
-
-`V(G) = D + 1`
-
-Where:
-
-- `D` = Number of binary decision points
-
-For a graph with `P` connected components, the general formula is:
-
-`V(G) = E - N + 2P`
-
-For one connected routine, `P = 1`, so:
-
-`V(G) = E - N + 2`
-
-### Example: checkDiscount()
-
-```c
-void checkDiscount(int amount) {
-    if (amount > 2000) {
-        print("Apply 25% Discount");
-    } else {
-        print("No Discount");
-    }
-
-    print("Transaction complete");
-}
-```
-
-There is one binary decision.
-
-Formula:
-
-`V(G) = D + 1`
-
-Substitution:
-
-`V(G) = 1 + 1`
-
-Final answer:
-
-`V(G) = 2`
-
-### Independent Paths
-
-**Path 1:**
-
-The condition `amount > 2000` is true.
-
-The discount is applied, and the transaction completes.
-
-**Path 2:**
-
-The condition `amount > 2000` is false.
-
-No discount is applied, and the transaction completes.
-
-### Test Cases
-
-- Input: `2500` — Discount is applied.
-- Input: `1500` — No discount is applied.
-- Input: `2000` — No discount is applied because the condition uses `>` rather than `>=`.
-
----
-
-## Q12. Calculate Cyclomatic Complexity for swapIfGreater()
-
-Consider the following code:
-
-```c
-void swapIfGreater(int a, int b) {
-    if (a > b) {
-        int temp = a;
-        a = b;
-        b = temp;
-    }
-
-    print("Final order");
-}
-```
-
-There is one binary decision.
-
-### Formula
-
-`V(G) = D + 1`
-
-### Substitution
-
-`V(G) = 1 + 1`
-
-### Final Answer
-
-`V(G) = 2`
-
-### Independent Paths
-
-**Path 1:**
-
-The condition `a > b` is true, so the values are swapped.
-
-**Path 2:**
-
-The condition `a > b` is false, so the values are not swapped.
-
-### Test Cases
-
-- Input `(8, 3)` — True path.
-- Input `(3, 8)` — False path.
-- Input `(5, 5)` — False path because the values are equal.
-
----
-
-## Q13. Explain Boundary Value Analysis and Equivalence Class Partitioning
-
-### Equivalence Class Partitioning
-
-Equivalence Class Partitioning divides inputs into groups expected to behave similarly.
-
-A representative value is selected from each group to reduce the number of test cases.
-
-### Boundary Value Analysis
-
-Boundary Value Analysis focuses on values at and around input limits.
-
-Defects frequently occur at boundaries because of incorrect comparison operators or range handling.
-
-### Example: Salary Validation
-
-Assume the accepted salary range is Rs. 10,000 to Rs. 1,00,000, inclusive.
-
-The valid condition is:
-
-`10000 <= salary <= 100000`
-
-### Equivalence Classes
-
-**Invalid lower class:**
-
-`salary < 10000`
-
-Expected result: Reject.
-
-**Valid class:**
-
-`10000 <= salary <= 100000`
-
-Expected result: Accept.
-
-**Invalid upper class:**
-
-`salary > 100000`
-
-Expected result: Reject.
-
-### Boundary Test Cases
-
-1. Rs. 9,999 — Reject.
-2. Rs. 10,000 — Accept.
-3. Rs. 10,001 — Accept.
-4. Rs. 99,999 — Accept.
-5. Rs. 1,00,000 — Accept.
-6. Rs. 1,00,001 — Reject.
-
-These values assume integer salary inputs and inclusive endpoints.
-
-### Advantages of BVA and ECP
-
-- Reduce unnecessary test cases.
-- Improve test coverage of important input conditions.
-- Help detect range-validation errors.
-- Make test design more systematic.
-
----
-
-## Q14. Explain White Box Testing Techniques
-
-### 1. Statement Coverage
-
-Ensures that each executable statement is executed at least once.
-
-### 2. Branch Coverage
-
-Ensures that each decision outcome is tested.
-
-For example, both the true and false branches of an `if` statement should be executed.
-
-### 3. Condition Coverage
-
-Ensures that each Boolean condition evaluates to both true and false where applicable.
-
-### 4. Basis Path Testing
-
-Identifies independent execution paths using Cyclomatic Complexity.
-
-### 5. Loop Testing
-
-Tests loops with zero, one, typical, and boundary numbers of iterations.
-
-### 6. Data-Flow Testing
-
-Examines how variables are defined and used.
-
-### Conclusion
-
-White Box Testing techniques help examine internal program logic and identify untested statements, branches, and paths.
-
-Coverage measurements are useful, but high coverage alone does not prove that software is defect-free.
-
----
-
-## Q15. Explain Software Testing Strategies
-
-A common software testing strategy includes the following stages.
-
-### 1. Unit Testing
-
-Tests individual modules or functions.
-
-### 2. Integration Testing
-
-Tests communication between modules.
-
-### 3. Validation Testing
-
-Checks whether the software satisfies specified requirements.
-
-### 4. System Testing
-
-Tests the complete integrated system.
-
-### 5. Acceptance Testing
-
-Determines whether the software meets user or customer expectations.
-
-### Other Testing Types
-
-**Regression Testing:** Checks whether changes have broken existing functionality.
-
-**Smoke Testing:** Performs a quick check of the build's major functions.
-
-**Performance Testing:** Measures response time, throughput, and resource usage.
-
-**Load Testing:** Evaluates behaviour under expected or high workloads.
-
-**Stress Testing:** Examines behaviour beyond normal operating limits.
-
-**Security Testing:** Checks security properties and weaknesses.
-
-**Usability Testing:** Evaluates ease of use.
-
-**Alpha Testing:** Evaluates software in a controlled environment.
-
-**Beta Testing:** Collects feedback from selected users in realistic environments.
-
----
-
-## Q16. Explain the Principles of Software Testing
-
-### 1. Testing Shows the Presence of Defects
-
-Testing can reveal defects, but it cannot prove that no defects exist.
-
-### 2. Exhaustive Testing Is Impractical
-
-Testing every possible input and execution path is generally impossible for non-trivial systems.
-
-### 3. Early Testing
-
-Testing should begin as early as possible in development.
-
-Early defect detection generally reduces correction costs.
-
-### 4. Defect Clustering
-
-Defects often concentrate in a small number of modules.
-
-These modules may require additional testing.
-
-### 5. Pesticide Paradox
-
-Repeating the same tests may eventually reveal fewer new defects.
-
-Test cases should be reviewed and improved over time.
-
-### 6. Context-Dependent Testing
-
-Different software systems require different testing strategies.
-
-Safety-critical software may need more rigorous testing than a small personal utility.
-
-### 7. Absence-of-Errors Fallacy
-
-Software can contain few known defects and still fail if it does not meet user needs.
-
----
-
-# 4. MODULE 6 - RISK AND QUALITY MANAGEMENT
-
-## Q17. Explain Software Risk and Its Types
-
-### Definition
-
-Software risk is an uncertain event or condition that may negatively affect project cost, schedule, scope, quality, or success.
-
-### 1. Project Risk
-
-Threatens project planning, staffing, budget, or schedule.
-
-Example: A key developer leaves during an important phase.
-
-### 2. Technical Risk
-
-Threatens software quality or implementation.
-
-Example: The selected technology cannot satisfy performance requirements.
-
-### 3. Business Risk
-
-Threatens the commercial success of the product.
-
-Example: Customer requirements change significantly.
-
-### 4. Operational Risk
-
-Threatens normal operation or support.
-
-Example: The production server becomes unavailable.
-
-### 5. External Risk
-
-Arises outside the direct control of the development team.
-
-Example: A third-party service changes its interface.
-
-> Different textbooks use different risk classifications. Follow the categories specified by your course.
-
-### Risk Exposure Formula
-
-`Risk Exposure = Probability x Impact`
-
-Example:
-
-Probability of delay:
-
-`P = 0.30`
-
-Estimated impact:
-
-`I = Rs. 50,000`
-
-Calculation:
-
-`Risk Exposure = 0.30 x 50,000`
-
-Final answer:
-
-`Risk Exposure = Rs. 15,000`
-
-This represents expected loss under the assumed probability and impact.
-
----
-
-## Q18. Explain the RMMM Plan with an Example
-
-### Definition
-
-RMMM stands for:
-
-- **R:** Risk Mitigation
-- **M:** Monitoring
-- **M:** Management
-
-An RMMM plan identifies important risks, describes preventive actions, tracks warning signs, and specifies responses if risks occur.
-
-### Main Components
-
-1. Risk identification.
-2. Probability and impact assessment.
-3. Mitigation actions.
-4. Monitoring indicators.
-5. Contingency or management actions.
-6. Assignment of responsibility.
-
-### Example: Student Attendance System
-
-#### Risk 1: Attendance Data Is Lost
-
-**Mitigation:**
-
-Schedule automatic backups and restrict database access.
-
-**Monitoring:**
-
-Check backup logs and perform periodic restore tests.
-
-**Management:**
-
-Restore the latest valid backup and reconcile records.
-
-#### Risk 2: Faculty Do Not Adopt the System
-
-**Mitigation:**
-
-Provide training and a simple interface.
-
-**Monitoring:**
-
-Collect usage data and user feedback.
-
-**Management:**
-
-Provide additional training and temporary assistance.
-
-#### Risk 3: Network Failure
-
-**Mitigation:**
-
-Prepare an approved offline attendance procedure.
-
-**Monitoring:**
-
-Monitor system availability and response time.
-
-**Management:**
-
-Record attendance through the fallback procedure and synchronize it later.
-
-#### Risk 4: Incorrect Attendance Entries
-
-**Mitigation:**
-
-Validate inputs and maintain an audit trail.
-
-**Monitoring:**
-
-Review correction rates and unusual patterns.
-
-**Management:**
-
-Correct records through an authorized process.
-
-### Conclusion
-
-An RMMM plan helps a team identify risks early, reduce their likelihood or impact, monitor warning signs, and prepare appropriate responses.
-
----
-
-## Q19. Explain Software Quality Assurance
-
-### Definition
-
-Software Quality Assurance (SQA) is a planned and systematic set of activities intended to provide confidence that software processes and products conform to requirements, standards, and procedures.
-
-### Objectives of SQA
-
-- Prevent defects.
-- Improve software quality.
-- Ensure compliance with standards.
-- Improve maintainability and reliability.
-- Increase customer satisfaction.
-- Encourage continuous process improvement.
-
-### SQA Process
-
-#### Step 1: Quality Planning
-
-Define quality goals, standards, responsibilities, and procedures.
-
-#### Step 2: Standards Definition
-
-Establish coding, documentation, testing, and review standards.
-
-#### Step 3: Requirements Review
-
-Check requirements for ambiguity, inconsistency, and incompleteness.
-
-#### Step 4: Design Review
-
-Identify design problems before implementation.
-
-#### Step 5: Technical Reviews
-
-Examine code, documents, and other work products.
-
-#### Step 6: Testing Oversight
-
-Check that testing activities are appropriate and documented.
-
-#### Step 7: Defect Tracking
-
-Record defects and track them to closure.
-
-#### Step 8: Quality Measurement
-
-Monitor relevant quality metrics.
-
-#### Step 9: Process Improvement
-
-Identify root causes and improve development practices.
-
-#### Step 10: Quality Reporting
-
-Communicate results and outstanding risks.
-
-### SQA Versus Testing
-
-Testing executes software to reveal failures.
-
-SQA is broader and includes process standards, reviews, audits, quality measurement, and continuous improvement.
-
----
-
-## Q20. Explain Software Configuration Management
-
-### Definition
-
-Software Configuration Management (SCM) is the process of identifying, organizing, and controlling changes to software artifacts throughout the software life cycle.
-
-### Main SCM Activities
-
-#### 1. Configuration Identification
-
-Identify source code, requirements, documents, test cases, and builds that need control.
-
-#### 2. Version Control
-
-Track file history and maintain different versions.
-
-#### 3. Change Control
-
-Review and approve proposed changes before implementation.
-
-#### 4. Configuration Status Accounting
-
-Record and report the current state of configuration items.
-
-#### 5. Configuration Auditing
-
-Check that configuration items and records are complete and consistent.
-
-#### 6. Build and Release Management
-
-Produce and identify controlled software builds and releases.
-
-### Version Control
-
-Version Control records changes to files over time.
-
-It supports:
-
-- Change history.
-- Branching and merging.
-- Collaboration.
-- Rollback.
-- Identification of release versions.
-
-### Change Control
-
-A typical change-control sequence is:
-
-`Change Request -> Impact Analysis -> Review and Approval -> Implementation -> Testing -> Record Update -> Release`
-
-Change control reduces unauthorized or poorly understood changes.
-
-### Benefits of SCM
-
-- Improves traceability.
-- Prevents version confusion.
-- Supports team collaboration.
-- Helps reproduce builds.
-- Reduces the risk of losing work.
-- Supports controlled releases.
-
----
-
-## Q21. Differentiate Between FTR and Walkthrough
-
-### Formal Technical Review (FTR)
-
-- Usually follows a defined review procedure.
-- Often uses a review leader or moderator.
-- Uses preparation and review criteria.
-- Records defects and follow-up actions.
-- Checks technical correctness and compliance with standards.
-
-### Walkthrough
-
-- Usually less formal.
-- Often led by the author.
-- The author explains the work product step by step.
-- Participants ask questions and identify possible defects.
-- Helps improve understanding and collect feedback.
-
-### Conclusion
-
-FTR is generally more structured, while a walkthrough is commonly an author-guided review.
-
-Terminology varies between textbooks and organizations, so follow the definition provided in your course notes.
-
----
-
-## Q22. Explain Software Re-engineering
-
-### Definition
-
-Software Re-engineering is the examination and modification of existing software to improve its structure, maintainability, or other qualities while preserving or carefully evolving its functionality.
-
-### Main Activities
-
-#### 1. Inventory Analysis
-
-Identify systems or components that require improvement.
-
-#### 2. Document Restructuring
-
-Improve outdated or incomplete documentation.
-
-#### 3. Reverse Engineering
-
-Analyse the existing system to recover design or requirements information.
-
-#### 4. Code Restructuring
-
-Improve code organization and readability.
-
-#### 5. Data Restructuring
-
-Improve the organization or format of data.
-
-#### 6. Forward Engineering
-
-Rebuild or evolve the software using the improved understanding.
-
-### Advantages
-
-- Extends the life of existing software.
-- Improves maintainability.
-- Reduces complexity.
-- Preserves valuable functionality.
-- May reduce the risk of complete replacement.
-
----
-
-# 5. FORMULA REVISION SHEET
-
-## 5.1 Cyclomatic Complexity
-
-For one connected control-flow graph:
-
-`V(G) = E - N + 2`
-
-Where:
-
-- `V(G)` = Cyclomatic Complexity
-- `E` = Number of edges
-- `N` = Number of nodes
-
-Using binary decision points:
-
-`V(G) = D + 1`
-
-Where:
-
-- `D` = Number of binary decision points
-
-For a graph with `P` connected components:
-
-`V(G) = E - N + 2P`
-
-For one connected routine, `P = 1`, so:
-
-`V(G) = E - N + 2`
-
-### Example
-
-If a program contains one binary decision:
-
-`D = 1`
-
-Therefore:
-
-`V(G) = D + 1`
-
-`V(G) = 1 + 1`
-
-**Final Answer: `V(G) = 2`**
-
-## 5.2 Risk Exposure
-
-Formula:
-
-`Risk Exposure = Probability x Impact`
-
-If the probability is given as a percentage, convert it to a decimal before multiplying.
-
-Example:
-
-`30% = 0.30`
-
-If the impact is Rs. 50,000:
-
-`Risk Exposure = 0.30 x 50,000`
-
-**Final Answer: Rs. 15,000**
-
-## 5.3 Salary Validation Range
-
-Assume the accepted salary range is Rs. 10,000 to Rs. 1,00,000, inclusive.
-
-Valid condition:
-
-`10000 <= salary <= 100000`
-
-Boundary values:
-
-- Rs. 9,999 — Reject.
-- Rs. 10,000 — Accept.
-- Rs. 10,001 — Accept.
-- Rs. 99,999 — Accept.
-- Rs. 1,00,000 — Accept.
-- Rs. 1,00,001 — Reject.
-
----
-
-# 6. LAST-MINUTE REVISION CHECKLIST
-
-## Module 4 - Software Design
-
-- [ ] Definition and types of cohesion.
-- [ ] Definition and types of coupling.
-- [ ] Cohesion versus coupling.
-- [ ] Software design principles.
-- [ ] Effective modular design.
-- [ ] Architectural styles.
-- [ ] Data-centered architecture.
-
-## Module 5 - Software Testing
-
-- [ ] Black Box versus White Box Testing.
-- [ ] Alpha versus Beta Testing.
-- [ ] Unit versus Integration Testing.
-- [ ] Software testing process.
-- [ ] Software testing strategies.
-- [ ] Basis Path Testing.
-- [ ] Cyclomatic Complexity formulas.
-- [ ] Independent execution paths.
-- [ ] Boundary Value Analysis.
-- [ ] Equivalence Class Partitioning.
-- [ ] White Box Testing techniques.
-- [ ] Principles of software testing.
-
-## Module 6 - Risk and Quality Management
-
-- [ ] Software risk categories.
-- [ ] Risk Exposure formula.
-- [ ] RMMM plan and example.
-- [ ] SQA definition and process.
-- [ ] SCM activities.
-- [ ] Version Control and Change Control.
-- [ ] FTR versus Walkthrough.
-- [ ] Software Re-engineering.
-
----
-
-# 7. ANSWER-WRITING STRATEGY
-
-## For a 2-Mark Question
-
-1. Write a clear definition.
-2. Add one or two important points.
-3. Include a small example if useful.
-
-## For a 7-Mark Question
-
-1. Start with a definition.
-2. Explain the main concepts under clear headings.
-3. Use numbered lists for steps or types.
-4. Include a comparison when relevant.
-5. Add a suitable example.
-6. Write formulas separately and substitute values step by step.
-7. End with a brief conclusion.
-
-## For Numerical Questions
-
-Always show:
-
-1. The formula.
-2. The meaning of the variables.
-3. The values substituted into the formula.
-4. The calculation.
-5. The final answer.
-6. A short interpretation of the result.
-
----
-
-**Final preparation tip:** Finish Priority 1 first, practise the Module 5 numerical questions, and then revise the remaining questions module by module.
